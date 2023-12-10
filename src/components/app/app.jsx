@@ -5,10 +5,10 @@ function App() {
   return (
     <div className={styles.app}>
       <pre style={{
-      	margin: "auto",
-      	fontSize: "1.5rem"
+        margin: "auto",
+        fontSize: "1.5rem"
       }}>
-      	Измените src/components/app/app.jsx и сохраните для обновления.
+        Измените src/components/app/app.jsx и сохраните для обновления....=meow=......
       </pre>
     </div>
   );
