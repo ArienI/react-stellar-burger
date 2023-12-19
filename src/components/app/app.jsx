@@ -1,15 +1,18 @@
 import styles from './App.module.css';
 import { data } from '../../utils/data';
+import Header from '../Header';
 
 function App() {
   return (
     <div className={styles.app}>
+      <Header />
       <pre style={{
         margin: 'auto',
         fontSize: '1.5rem'
       }}>
-        Измените src/components/App/App.jsx и сохраните для обновления ... =^.^= meow =^.^= ...
+         ...=^.^=❤meow❤=^.^=...
       </pre>
+      <h1>hi</h1>
     </div>
   );
 }
