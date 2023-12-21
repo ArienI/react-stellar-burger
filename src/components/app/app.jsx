@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './App.module.css';
 import Header from '../Header';
+import Main from '../Main';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,6 +22,7 @@ function App() {
   return (
     <div className={styles.app}>
       <Header />
+      <Main />
       <pre style={{ margin: 'auto', fontSize: '1.5rem' }}>
         ...=^.^=❤meow❤=^.^=...
       </pre>
