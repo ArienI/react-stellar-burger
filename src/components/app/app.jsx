@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './App.module.css';
-import Header from '../Header';
-import Main from '../Main';
+import Header from '../Header/Header';
+import Main from '../Main/Main';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
