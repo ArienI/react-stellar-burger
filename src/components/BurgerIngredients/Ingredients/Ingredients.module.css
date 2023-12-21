@@ -1,0 +1,7 @@
+.columns {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Создает две колонки с одинаковой шириной */
+  gap: 32px 24px;
+}

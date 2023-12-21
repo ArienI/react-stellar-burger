@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Header.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import MenuItem from './MenuItem';
+import MenuItem from '../MenuItem/MenuItem';
 
 function Header() {
   return (

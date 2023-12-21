@@ -1,0 +1,25 @@
+.burgerConstructor {
+  max-width: 600px;
+  height: 100%;
+  padding-top: 250px;
+}
+
+.customScroll {
+  overflow-y: auto;
+  /* Добавит прокрутку, если контент переполнен */
+  max-height: 600px;
+}
+
+.customScroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.customScroll::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #2F2F37;
+  border-radius: 6px;
+}
