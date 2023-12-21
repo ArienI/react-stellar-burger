@@ -1,5 +1,67 @@
 @import-normalize;
 
+:root {
+  --background: #1c1c21;
+  --background-alt: #131316;
+  --background-element: #2f2f37;
+  --offset-base-variable: 2px;
+  --offset-base-size: 4px;
+  --top-constructor-item-border-radius: 88px 88px 40px 40px;
+  --bottom-constructor-item-border-radius: 40px 40px 88px 88px;
+
+  --common-border-radius: 64px;
+  --common-border-radius-s: 40px;
+  --text-primary-color: white;
+  --text-inactive-color: #8585AD;
+  --colors-interface-accent: #4c4cff;
+  --colors-interface-error: #E52B1A;
+  --colors-interface-success: #00cccc;
+  --colors-button-inactive: #3A3A55;
+  scrollbar-color: #2F2F37 #8585AD;
+  scrollbar-width: thin;
+
+  --common-transition: all .3s ease-in;
+}
+
+@-moz-document url-prefix() {
+  :root {
+    scrollbar-color: #8585AD #2F2F37;
+  }
+}
+
 body {
+  padding: 0;
   margin: 0;
+  color: var(--text-primary-color);
+  background: var(--background-alt);
+}
+
+.body::-webkit-scrollbar {
+  width: 12px;
+}
+
+.body::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.body::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #2F2F37;
+  border-radius: 6px;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+ supported by Chrome, Edge, Opera and Firefox*/
 }

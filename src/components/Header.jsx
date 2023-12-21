@@ -6,15 +6,17 @@ import MenuItem from './MenuItem';
 function Header() {
   return (
     <header className={styles.header}>
-      <div className={styles.navigation}>
-        <MenuItem icon={BurgerIcon} text="Конструктор" isActive={true} />
-        <MenuItem icon={ListIcon} text="Лента заказов" isActive={false} />
-      </div>
-      <div className={styles.logo}>
-        <Logo/>
-      </div>
-      <div className={styles.profile}>
-        <MenuItem icon={ProfileIcon} text="Личный кабинет" isActive={false} />
+      <div className={styles.content}>
+        <div className={styles.navigation}>
+          <MenuItem icon={BurgerIcon} text="Конструктор" isActive={true} />
+          <MenuItem icon={ListIcon} text="Лента заказов" isActive={false} />
+        </div>
+        <div className={styles.logo}>
+          <Logo />
+        </div>
+        <div className={styles.profile}>
+          <MenuItem icon={ProfileIcon} text="Личный кабинет" isActive={false} />
+        </div>
       </div>
     </header>
   );

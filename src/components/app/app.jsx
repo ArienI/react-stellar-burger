@@ -10,8 +10,8 @@ function App() {
     //  таймаут:
     setTimeout(() => {
       setIsLoading(false);
-      // 3 секунды задержки
-    }, 3000);
+      // 2 секунды задержки
+    }, 1000);
   }, []);
 
   if (isLoading) {
