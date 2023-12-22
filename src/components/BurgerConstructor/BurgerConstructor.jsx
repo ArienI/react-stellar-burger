@@ -5,12 +5,12 @@ import { data } from '../../utils/data';
 
 const BurgerConstructor = () => {
   const buns = data.filter((item) => item.type === 'bun');
-  // Предполагаем, что первый элемент - это верхняя булка
+  // первый элемент - это верхняя булка
   const topBun = buns[0];
-  // Последний элемент - это нижняя булка
+  // последний элемент - это нижняя булка
   const bottomBun = buns[buns.length - 1];
 
-  // Отфильтруй остальные ингредиенты
+  // фильтруем остальные ингредиенты
   const otherIngredients = data.filter((item) => item.type !== 'bun');
 
 
