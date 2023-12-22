@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './BurgerConstructor.module.css';
 import { ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { data } from '../../utils/data';
+import imageIcon from '../../images/icon 36x36.svg';
 
 const BurgerConstructor = () => {
   const buns = data.filter((item) => item.type === 'bun');
@@ -52,11 +53,16 @@ const BurgerConstructor = () => {
           key={bottomBun._id}
         />
       )}
-
-      <div className={styles.buttonContainer}>
-        <Button type="primary" size="large">
-          Оформить заказ
-        </Button>
+      <div className={styles.info}>
+        <div className={styles.price}>
+          <h3 className={styles.sum}>610</h3>
+          <img src={imageIcon} alt='Описание' className={styles.icon} />
+        </div>
+        <div className={styles.buttonContainer}>
+          <Button type="primary" size="large">
+            Оформить заказ
+          </Button>
+        </div>
       </div>
     </section>
   );
