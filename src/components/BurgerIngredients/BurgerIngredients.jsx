@@ -29,6 +29,7 @@ const BurgerIngredients = () => {
         <h2>Соусы</h2>
         <Sauces />
       </div>
+      {/* <Modal/> */}
     </section>
   );
 };
