@@ -46,15 +46,3 @@
   display: flex;
   gap: 8px;
 }
-
-.sum {
-  color: var(--text-primary-light-standart-text, #F2F2F3);
-  text-align: right;
-  font-family: Iceland;
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 36px;
-  /* 75% */
-  border: 1px dashed var(--interface-accent, #4C4CFF);
-}

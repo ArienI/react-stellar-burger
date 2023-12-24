@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './BurgerConstructor.module.css';
-import { ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, Button, p } from '@ya.praktikum/react-developer-burger-ui-components';
 import { data } from '../../utils/data';
 import imageIcon from '../../images/icon 36x36.svg';
 
@@ -58,7 +58,7 @@ const BurgerConstructor = () => {
 
       <div className={styles.info}>
         <div className={styles.price}>
-          <h3 className={styles.sum}>610</h3>
+          <p className="text text_type_digits-medium">610</p>
           <img src={imageIcon} alt='космокристалл' className={styles.icon} />
         </div>
         <div className={styles.buttonContainer}>

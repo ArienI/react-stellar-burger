@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../Ingredients.module.css';
 import { data } from '../../../../utils/data';
 import imageIcon from '../../../../images/icon 24x24.svg';
+import { p } from '@ya.praktikum/react-developer-burger-ui-components';
 
 // Фильтруем соусы из массива данных
 const sauces = data.filter((item) => item.type === 'sauce');
@@ -15,12 +16,10 @@ const Sauces = () => {
             <div className={styles.counter}></div>
             <img src={sauce.image} className={styles.image} alt={sauce.name} />
             <div className={styles.price}>
-              <p>30</p>
+              <p className="text text_type_digits-default">30</p>
               <img src={imageIcon} alt='космокристалл' />
             </div>
             <p>{sauce.name}</p>
-            {/* <p>Калории: {sauce.calories}</p> */}
-
           </div>
         </div>
       ))}
