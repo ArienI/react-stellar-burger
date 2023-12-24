@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './BurgerConstructor.module.css';
 import { ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { data } from '../../utils/data';
 import imageIcon from '../../images/icon 36x36.svg';
-import Modal from '../Modal/Modal';
+import Card from '../Modal/Card/Card';
+import ModalCard from '../Modal/ModalCard';
 
 const BurgerConstructor = () => {
   const buns = data.filter((item) => item.type === 'bun');
@@ -15,6 +16,7 @@ const BurgerConstructor = () => {
   // фильтруем остальные ингредиенты
   const otherIngredients = data.filter((item) => item.type !== 'bun');
 
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <section className={styles.burgerConstructor}>
@@ -63,12 +65,15 @@ const BurgerConstructor = () => {
           <img src={imageIcon} alt='космокристалл' className={styles.icon} />
         </div>
         <div className={styles.buttonContainer}>
-          <Button type="primary" size="large">
+          <Button onClick={() => setShowPopup(true)} type="primary" size="large">
             Оформить заказ
           </Button>
+          <ModalCard show={showPopup} onClose={() => setShowPopup(false)}>
+            <Card />
+          </ModalCard>
         </div>
       </div>
-      {/* <Modal /> */}
+
     </section>
   );
 };
