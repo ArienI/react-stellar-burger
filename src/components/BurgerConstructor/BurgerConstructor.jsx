@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './BurgerConstructor.module.css';
-import { ConstructorElement, Button, p } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { data } from '../../utils/data';
 import imageIcon from '../../images/icon 36x36.svg';
+import Modal from '../Modal/Modal';
 
 const BurgerConstructor = () => {
   const buns = data.filter((item) => item.type === 'bun');
@@ -67,6 +68,7 @@ const BurgerConstructor = () => {
           </Button>
         </div>
       </div>
+      {/* <Modal /> */}
     </section>
   );
 };
