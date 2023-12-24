@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../Ingredients.module.css';
 import { data } from '../../../../utils/data';
 import imageIcon from '../../../../images/icon 24x24.svg';
+import { p } from '@ya.praktikum/react-developer-burger-ui-components';
 
 // Фильтруем булки из массива данных
 const buns = data.filter((item) => item.type === 'bun');
@@ -15,15 +16,10 @@ const Buns = () => {
             <div className={styles.counter}></div>
             <img src={bun.image} className={styles.image} alt={bun.name} />
             <div className={styles.price}>
-              <p>20</p>
+              <p className="text text_type_digits-default">20</p>
               <img src={imageIcon} alt='космокристалл' />
             </div>
             <p>{bun.name}</p>
-            {/* <p>Калории: {bun.calories}</p> */}
-            {/* <p>Белки: {bun.proteins}</p> */}
-            {/* <p>Жиры: {bun.fat}</p> */}
-            {/* <p>Углеводы: {bun.carbohydrates}</p> */}
-            {/* <p>Цена: {bun.price}</p> */}
           </div>
         </div>
       ))}
