@@ -2,16 +2,17 @@ import React from 'react';
 import styles from '../Ingredients.module.css';
 import { data } from '../../../../utils/data';
 import imageIcon from '../../../../images/icon 24x24.svg';
-import { p, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 // Фильтруем соусы из массива данных
 const sauces = data.filter((item) => item.type === 'sauce');
 
-const Sauces = () => {
+const Sauces = ({ openModal }) => {
   return (
     <div className={styles.columns}>
       {sauces.map((sauce) => (
-        <div key={sauce._id} className={styles.ingredientItem}>
+        <div key={sauce._id} className={styles.ingredientItem} onClick={() => openModal(sauce)}>
           <div className={styles.column}>
             <Counter />
             <img src={sauce.image} className={styles.image} alt={sauce.name} />
@@ -25,6 +26,10 @@ const Sauces = () => {
       ))}
     </div>
   );
+};
+
+Sauces.propTypes = {
+  openModal: PropTypes.func.isRequired
 };
 
 export default Sauces;

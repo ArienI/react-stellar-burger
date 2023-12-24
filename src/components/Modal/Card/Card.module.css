@@ -11,3 +11,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.cardImage {
+  margin: 60px auto;
+}

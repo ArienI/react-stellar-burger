@@ -1,0 +1,39 @@
+.ingredientInfo {
+  background-color: var(--interface-modal-bg, #1C1C21);
+  border-radius: 40px;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 4px 8px 0px rgba(0, 0, 0, 0.04), 0px 16px 24px 0px rgba(0, 0, 0, 0.04), 0px 24px 32px 0px rgba(0, 0, 0, 0.04);
+  padding: 40px;
+  max-width: 640px;
+  margin: auto;
+}
+
+.ingredientImage {
+  width: 100%;
+  height: auto;
+}
+
+.ingredientName {
+  margin-top: 16px;
+}
+
+.ingredientDetails {
+  margin-top: 32px;
+}
+
+.description {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 32px auto 60px;
+}
+
+.text_description {
+  max-width: 112px;
+}
+
+.text_name {
+  max-width: 520px;
+
+}

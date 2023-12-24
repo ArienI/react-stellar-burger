@@ -3,10 +3,20 @@ import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Buns from './Ingredients/Buns/Buns';
 import Sauces from './Ingredients/Sauces/Sauces';
+import ModalCard from '../Modal/ModalCard';
+import IngredientInfo from '../Modal/IngredientInfo/IngredientInfo';
 
 const BurgerIngredients = () => {
   // Создаем состояние current с начальным значением 'one'
   const [current, setCurrent] = useState('one');
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedIngredient, setSelectedIngredient] = useState(null);
+
+  const openModal = (ingredient) => {
+    setSelectedIngredient(ingredient);
+    setIsModalOpen(true);
+  };
 
   return (
     <section className={styles.burgerIngredients}>
@@ -24,12 +34,14 @@ const BurgerIngredients = () => {
       </div>
       <div className={styles.customScroll}>
         <h2>Булки</h2>
-        <Buns />
+        <Buns openModal={openModal} />
 
         <h2>Соусы</h2>
-        <Sauces />
+        <Sauces openModal={openModal} />
       </div>
-      {/* <Modal/> */}
+      <ModalCard show={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <IngredientInfo ingredient={selectedIngredient} />
+      </ModalCard>
     </section>
   );
 };
