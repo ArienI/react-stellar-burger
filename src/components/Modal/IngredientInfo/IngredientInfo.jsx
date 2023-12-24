@@ -1,35 +1,45 @@
 import React from 'react';
-import imageDelete from '../../../images/delete24x24.svg';
 import styles from '../IngredientInfo/IngredientInfo.module.css';
-import { data } from '../../../utils/data';
+import PropTypes from 'prop-types';
 
-const buns = data.filter((item) => item.type === 'bun');
 
-const IngredientInfo = () => {
+const IngredientInfo = ({ ingredient }) => {
+  // Если ингредиент не выбран, ничего не рендерим
+  if (!ingredient) return null;
+
+  // Теперь отображаем информацию только для выбранного ингредиента
   return (
-    <div>
-      <div>
-        <p className="text text_type_main-large">
-          Детали ингредиента
-        </p>
-        <img src={imageDelete} alt='удалить' />
+    <div className={styles.ingredientInfo}>
+      <div className={styles.header}>
+        <p className="text text_type_digits-medium">Детали ингредиента</p>
       </div>
-
-      <div className={styles.columns}>
-        {buns.map((bun) => (
-          <div key={bun._id} className={styles.ingredientItem}>
-            <img src={bun.image} alt={bun.name} />
-            <p>{bun.name}</p>
-            <p>Калории: {bun.calories}</p>
-            <p>Белки: {bun.proteins}</p>
-            <p>Жиры: {bun.fat}</p>
-            <p>Углеводы: {bun.carbohydrates}</p>
+      <div className={styles.ingredientDetails}>
+        <div key={ingredient._id} className={styles.ingredientItem}>
+          <img src={ingredient.image} alt={ingredient.name} className={styles.ingredientImage} />
+          <p className="text text_type_digits-default text_name">{ingredient.name}</p>
+          <div className={styles.description}>
+            <p className="text text_type_digits-default text_description">Калории: {ingredient.calories}</p>
+            <p className="text text_type_digits-default text_description">Белки: {ingredient.proteins}</p>
+            <p className="text text_type_digits-default text_description">Жиры: {ingredient.fat}</p>
+            <p className="text text_type_digits-default text_description">Углеводы: {ingredient.carbohydrates}</p>
           </div>
-        ))}
+        </div>
       </div>
-
     </div>
   );
+};
+
+// Валидация пропсов
+IngredientInfo.propTypes = {
+  ingredient: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    calories: PropTypes.number.isRequired,
+    proteins: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired
+  })
 };
 
 export default IngredientInfo;

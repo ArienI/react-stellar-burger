@@ -3,15 +3,16 @@ import styles from '../Ingredients.module.css';
 import { data } from '../../../../utils/data';
 import imageIcon from '../../../../images/icon 24x24.svg';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 // Фильтруем булки из массива данных
 const buns = data.filter((item) => item.type === 'bun');
 
-const Buns = () => {
+const Buns = ({ openModal }) => {
   return (
     <div className={styles.columns}>
       {buns.map((bun) => (
-        <div key={bun._id} className={styles.ingredientItem}>
+        <div key={bun._id} className={styles.ingredientItem} onClick={() => openModal(bun)}>
           <div className={styles.column}>
             <Counter />
             <img src={bun.image} className={styles.image} alt={bun.name} />
@@ -25,6 +26,10 @@ const Buns = () => {
       ))}
     </div>
   );
+};
+
+Buns.propTypes = {
+  openModal: PropTypes.func.isRequired
 };
 
 export default Buns;
