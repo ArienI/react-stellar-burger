@@ -2,7 +2,7 @@
   max-width: 1920px;
   margin: 40px;
   background-color: #131316;
-  border: 2px solid var(--interface-accent, #4C4CFF);
+
   background: var(--interface-modal-bg, #1C1C21);
 }
 
@@ -11,7 +11,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 16px 320px;
+  margin: 16px auto;
 }
 
 .navigation {

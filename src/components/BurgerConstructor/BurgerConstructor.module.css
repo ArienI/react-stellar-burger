@@ -14,6 +14,17 @@
   overflow-y: auto;
   /* Добавляем прокрутку, если контент переполнен */
   max-height: 600px;
+  margin-bottom: 16px;
+}
+
+/* нет отступа у последнего элемента */
+.customScroll>div:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+/* отступ только для верхнего элемента */
+.customScroll>div:first-child {
+  margin-top: 16px;
 }
 
 .customScroll::-webkit-scrollbar {
@@ -38,7 +49,7 @@
   justify-content: end;
   align-items: center;
   gap: 40px;
-  border: 1px dashed var(--interface-accent, #4C4CFF);
+
 }
 
 .price {
