@@ -17,46 +17,49 @@ const BurgerConstructor = () => {
 
   return (
     <section className={styles.burgerConstructor}>
-      {/* Отображение верхней булки */}
-      {topBun && (
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${topBun.name} (верх)`}
-          price={topBun.price}
-          thumbnail={topBun.image}
-          key={topBun._id}
-        />
-      )}
-
-      {/* Отображение ингредиентов с прокруткой */}
-      <div className={styles.customScroll}>
-        {/* Отображаем только остальные ингредиенты */}
-        {otherIngredients.map((item) => (
+      <div className={styles.burgerComponents}>
+        {/* Отображение верхней булки */}
+        {topBun && (
           <ConstructorElement
-            key={item._id}
-            text={item.name}
-            price={item.price}
-            thumbnail={item.image}
+            type="top"
+            isLocked={true}
+            text={`${topBun.name} (верх)`}
+            price={topBun.price}
+            thumbnail={topBun.image}
+            key={topBun._id}
           />
-        ))}
+        )}
+
+        {/* Отображение ингредиентов с прокруткой */}
+        <div className={styles.customScroll}>
+          {/* Отображаем только остальные ингредиенты */}
+          {otherIngredients.map((item) => (
+            <ConstructorElement
+              key={item._id}
+              text={item.name}
+              price={item.price}
+              thumbnail={item.image}
+            />
+          ))}
+        </div>
+
+        {/* Отображение нижней булки */}
+        {bottomBun && (
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${bottomBun.name} (низ)`}
+            price={bottomBun.price}
+            thumbnail={bottomBun.image}
+            key={bottomBun._id}
+          />
+        )}
       </div>
 
-      {/* Отображение нижней булки */}
-      {bottomBun && (
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={`${bottomBun.name} (низ)`}
-          price={bottomBun.price}
-          thumbnail={bottomBun.image}
-          key={bottomBun._id}
-        />
-      )}
       <div className={styles.info}>
         <div className={styles.price}>
           <h3 className={styles.sum}>610</h3>
-          <img src={imageIcon} alt='Описание' className={styles.icon} />
+          <img src={imageIcon} alt='космокристалл' className={styles.icon} />
         </div>
         <div className={styles.buttonContainer}>
           <Button type="primary" size="large">

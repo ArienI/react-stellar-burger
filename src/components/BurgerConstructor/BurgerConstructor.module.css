@@ -1,7 +1,13 @@
 .burgerConstructor {
   max-width: 600px;
-  height: 100%;
-  padding-top: 250px;
+  max-height: 912px;
+}
+
+.burgerComponents {
+  max-height: 656px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 130px;
 }
 
 .customScroll {
@@ -32,6 +38,7 @@
   justify-content: end;
   align-items: center;
   gap: 40px;
+  border: 1px dashed var(--interface-accent, #4C4CFF);
 }
 
 .price {
@@ -49,4 +56,5 @@
   font-weight: 400;
   line-height: 36px;
   /* 75% */
+  border: 1px dashed var(--interface-accent, #4C4CFF);
 }
