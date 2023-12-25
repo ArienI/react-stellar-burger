@@ -5,7 +5,7 @@ import imageIcon from '../../../../images/icon 24x24.svg';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-// Фильтруем соусы из массива данных
+// Фильтруем массив и выбираем соусы
 const sauces = data.filter((item) => item.type === 'sauce');
 
 const Sauces = ({ openModal }) => {
