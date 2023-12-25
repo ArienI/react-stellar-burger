@@ -11,7 +11,7 @@ export default function App() {
     //  таймаут:
     setTimeout(() => {
       setIsLoading(false);
-      // 2 секунды задержки
+      // 1 секунды задержки
     }, 1000);
   }, []);
 
