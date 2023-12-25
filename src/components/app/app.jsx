@@ -3,7 +3,7 @@ import styles from './App.module.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 
-function App() {
+export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -29,5 +29,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
