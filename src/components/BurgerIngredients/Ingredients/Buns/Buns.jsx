@@ -5,7 +5,7 @@ import imageIcon from '../../../../images/icon 24x24.svg';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-// Фильтруем булки из массива данных
+// Фильтруем массив и выбираем булочки
 const buns = data.filter((item) => item.type === 'bun');
 
 const Buns = ({ openModal }) => {

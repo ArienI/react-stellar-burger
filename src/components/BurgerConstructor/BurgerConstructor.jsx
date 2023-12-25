@@ -7,15 +7,18 @@ import Card from '../Modal/Card/Card';
 import ModalCard from '../Modal/ModalCard';
 
 const BurgerConstructor = () => {
+  // фильтруем массив в файле data, ищем булочки(item.type === 'bun')
   const buns = data.filter((item) => item.type === 'bun');
-  // первый элемент - это верхняя булка
+  // первый элемент с индексом 0 - это верхняя булка
   const topBun = buns[0];
-  // последний элемент - это нижняя булка
+  // последний элемент с индексмом длина-1 - это нижняя булка
   const bottomBun = buns[buns.length - 1];
 
-  // фильтруем остальные ингредиенты
+  // фильтруем остальные ингредиенты, выбираем все не булочки
   const otherIngredients = data.filter((item) => item.type !== 'bun');
 
+  // useState- хук для управления состоянием, вызывается с начальным состоянием
+  // showPopup- хранит текущее состояние, setShowPopup- функция позволяющая изменить это состояние. Начальное значение для showPopup-false
   const [showPopup, setShowPopup] = useState(false);
 
   return (
@@ -65,9 +68,12 @@ const BurgerConstructor = () => {
           <img src={imageIcon} alt='космокристалл' className={styles.icon} />
         </div>
         <div className={styles.buttonContainer}>
+          {/* onClick={() => setShowPopup(true)}- это проп onClick, который принимает стрелочную функцию. При клике на кнопку, вызывается функция, и внутри нее вызывается setShowPopup с аргументом true, и это меняет состояние showPopup на true, для отображения модального окна*/}
           <Button onClick={() => setShowPopup(true)} type="primary" size="large">
             Оформить заказ
           </Button>
+          {/* show={showPopup} -проп контролирует должен ли компонент ModalCard отображаться или быть скрытым. Когда showPopup равно true, модальное окно будет показано */}
+          {/* onClose={() => setShowPopup(false)}- проп, который представляет функцию, которая будет вызвана, когда нужно закрытьь модальное окно. Функция setShowPopup(false) изменит состояние showPopup на false, что приведёт к закрытию модального окна.  */}
           <ModalCard show={showPopup} onClose={() => setShowPopup(false)}>
             <Card />
           </ModalCard>

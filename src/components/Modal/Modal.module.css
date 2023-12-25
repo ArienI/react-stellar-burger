@@ -35,6 +35,6 @@
 .closeButton {
   background: none;
   border: none;
-  cursor: pointer;
+  cursor: url('../../images/icons8-cat-footprint-gradient-32.png'), auto;
   padding: 0;
 }
