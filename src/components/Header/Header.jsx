@@ -3,7 +3,7 @@ import styles from './Header.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import MenuItem from '../MenuItem/MenuItem';
 
-function Header() {
+export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.content}>
@@ -21,5 +21,3 @@ function Header() {
     </header>
   );
 }
-
-export default Header;
