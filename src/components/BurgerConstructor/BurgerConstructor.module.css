@@ -7,38 +7,26 @@
   max-height: 656px;
   display: flex;
   flex-direction: column;
-  padding-top: 130px;
+  padding-top: 60px;
+  align-items: center;
 }
 
 .customScroll {
-  overflow-y: auto;
-  /* Добавляем прокрутку, если контент переполнен */
+  overflow-y: scroll;
+  /* Добавляе прокрутку, если контент переполнен */
   max-height: 600px;
-  margin-bottom: 16px;
-}
-
-/* нет отступа у последнего элемента */
-.customScroll>div:not(:last-child) {
-  margin-bottom: 16px;
-}
-
-/* отступ только для верхнего элемента */
-.customScroll>div:first-child {
-  margin-top: 16px;
 }
 
 .customScroll::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 .customScroll::-webkit-scrollbar-track {
-  background: #2F2F37;
+  background-color: var(--background-element);
 }
 
 .customScroll::-webkit-scrollbar-thumb {
-  background: #8585AD;
-  border: 3px solid #2F2F37;
-  border-radius: 6px;
+  background-color: var(--text-inactive-color);
 }
 
 .info {
@@ -49,11 +37,16 @@
   justify-content: end;
   align-items: center;
   gap: 40px;
-
 }
 
 .price {
   max-width: 119px;
   display: flex;
+  gap: 8px;
+}
+
+.constructorIngredient {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }

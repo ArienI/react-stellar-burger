@@ -12,21 +12,19 @@ li {
 }
 
 .customScroll {
-  overflow-y: auto;
+  overflow-y: scroll;
   /* Добавляе прокрутку, если контент переполнен */
   max-height: 756px;
 }
 
 .customScroll::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 .customScroll::-webkit-scrollbar-track {
-  background: #2F2F37;
+  background-color: var(--background-element);
 }
 
 .customScroll::-webkit-scrollbar-thumb {
-  background: #8585AD;
-  border: 3px solid #2F2F37;
-  border-radius: 6px;
+  background-color: var(--text-inactive-color);
 }

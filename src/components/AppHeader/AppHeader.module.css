@@ -1,9 +1,5 @@
 .header {
-  max-width: 1920px;
-  margin: 40px;
-  background-color: #131316;
-
-  background: var(--interface-modal-bg, #1C1C21);
+  background-color: var(--background);
 }
 
 .content {
@@ -11,10 +7,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 16px auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .navigation {
   display: flex;
-  gap: 16px;
+  gap: 8px;
 }
