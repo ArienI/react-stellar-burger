@@ -1,0 +1,16 @@
+.ingredientInfo {
+  background-color: var(--interface-modal-bg, #1C1C21);
+  border-radius: 40px;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 4px 8px 0px rgba(0, 0, 0, 0.04), 0px 16px 24px 0px rgba(0, 0, 0, 0.04), 0px 24px 32px 0px rgba(0, 0, 0, 0.04);
+  max-width: 640px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.description {
+  display: flex;
+  gap: 20px;
+  text-align: center;
+}

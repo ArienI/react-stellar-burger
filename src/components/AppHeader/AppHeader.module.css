@@ -1,0 +1,17 @@
+.header {
+  background-color: var(--background);
+}
+
+.content {
+  max-width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navigation {
+  display: flex;
+  gap: 8px;
+}
