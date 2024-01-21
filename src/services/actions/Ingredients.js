@@ -3,7 +3,12 @@ import { URL_INGREDIENTS, SET_INGREDIENTS, INCREMENT_AMOUNT, DECREMENT_AMOUNT } 
 function download() {
   return (dispatch) => {
     fetch(URL_INGREDIENTS)
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Ошибка!');
+        }
+        return res.json();
+      })
       .then(ingredients => {
         const ingredientsWithAmount = ingredients.data.map(item => ({ ...item, amount: 0 }));
         dispatch(setIngredients(ingredientsWithAmount));
@@ -13,7 +18,6 @@ function download() {
       });
   };
 };
-
 
 function setIngredients(ingredients) {
   return {

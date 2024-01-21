@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import styles from './BurgerConstructor.module.css';
 import { ConstructorElement, Button, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { OrderDetails } from './OrderDetails/OrderDetails';
@@ -7,12 +7,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { addIngredient, deleteIngredient } from '../../services/actions/Burger';
 import { decrementAmount, incrementAmount } from '../../services/actions/Ingredients';
+import { upload } from '../../services/actions/Order';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const burger = useSelector((store) => store.Burger);
   const anyBuns = burger.find(item => item.type === 'bun');
   const anyIngredients = burger.some(item => item.type !== 'bun');
+
+  function calculatePrice(ingredients) {
+    const initialPrice = 0;
+    return ingredients.reduce((acc, item) => {
+      const ingredienPrice = item.type === 'bun' ? item.price * 2 : item.price;
+      return acc + ingredienPrice;
+    }, initialPrice);
+  };
+
+  const totalPrice = useMemo(() => calculatePrice(burger), [burger]);
 
   // useState- хук для управления состоянием, вызывается с начальным состоянием
   // showPopup- хранит текущее состояние, setShowPopup- функция позволяющая изменить это состояние. Начальное значение для showPopup-false
@@ -95,12 +106,18 @@ function BurgerConstructor() {
       </div>
       <div className={styles.info}>
         <div className={styles.price}>
-          <p className="text text_type_digits-medium">610</p>
+          <p className="text text_type_digits-medium">{totalPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
         <div className={styles.buttonContainer}>
           {/* onClick={() => setShowPopup(true)}- это проп onClick, который принимает стрелочную функцию. При клике на кнопку, вызывается функция, и внутри нее вызывается setShowPopup с аргументом true, и это меняет состояние showPopup на true, для отображения модального окна*/}
-          <Button onClick={() => setShowPopup(true)} type="primary" size="large" htmlType="button">
+          <Button onClick={() => {
+            dispatch(upload(burger.map((item) => item._id)));
+            setShowPopup(true)
+          }}
+            type="primary" size="large" htmlType="button"
+            disabled={!anyBuns || !anyIngredients}
+          >
             Оформить заказ
           </Button>
           {/* show={showPopup} -проп контролирует должен ли компонент Modal отображаться или быть скрытым. Когда showPopup равно true, модальное окно будет показано */}
