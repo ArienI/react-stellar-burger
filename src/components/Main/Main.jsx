@@ -1,38 +1,20 @@
 import styles from './Main.module.css';
 import { BurgerConstructor } from '../BurgerConstructor/BurgerConstructor';
 import { BurgerIngredients } from '../BurgerIngredients/BurgerIngredients';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { download } from '../../services/actions/Ingredients';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Main() {
-  const [ingredients, setIngredients] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const ingredients = useSelector((store) => store.Ingredients);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch('https://norma.nomoreparties.space/api/ingredients')
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Ошибка!');
-        }
-        return res.json();
-      })
-      .then(data => {
-        setIngredients(data.data);
-      })
-      .catch(err => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    dispatch(download());
   }, []);
 
-  if (isLoading) {
+  if (!ingredients) {
     return <h1 className={styles.preloader}>Идёт Загрузка... =^.^=❤meow❤=^.^= ...</h1>;
-  }
-
-  if (error) {
-    return <h1 className={styles.error}>Ошибка: {error}</h1>;
   }
 
   return (
