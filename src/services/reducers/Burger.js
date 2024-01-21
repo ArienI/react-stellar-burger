@@ -2,22 +2,23 @@ import { ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT } from '../../utils/
 
 const burger = [];
 
-function updateIngredientList(ingredients, newIngredient) {
-  return newIngredient.type === 'bun' ? [newIngredient].concat(ingredients) : ingredients.concat(newIngredient);
-};
-
-function removeIngredientByIndex(ingredients, index) {
-  return ingredients.filter((_, curIndex) => curIndex !== index);
-};
-
-function moveIngredient(ingredients, startPosition, endPosition) {
-  const updatedIngredients = [...ingredients];
-  const [removedIngredient] = updatedIngredients.splice(startPosition, 1);
-  updatedIngredients.splice(endPosition, 0, removedIngredient);
-  return updatedIngredients;
-};
-
 function burgerReducer(state = burger, action) {
+
+  function updateIngredientList(ingredients, newIngredient) {
+    return newIngredient.type === 'bun' ? [newIngredient].concat(ingredients) : ingredients.concat(newIngredient);
+  };
+
+  function removeIngredientByIndex(ingredients, index) {
+    return ingredients.filter((_, curIndex) => curIndex !== index);
+  };
+
+  function moveIngredient(ingredients, startPosition, endPosition) {
+    const updatedIngredients = [...ingredients];
+    const [removedIngredient] = updatedIngredients.splice(startPosition, 1);
+    updatedIngredients.splice(endPosition, 0, removedIngredient);
+    return updatedIngredients;
+  };
+
   switch (action.type) {
     case ADD_INGREDIENT:
       return updateIngredientList(state, action.ingredient);

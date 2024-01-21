@@ -2,6 +2,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './Ingredient.module.css';
 import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd';
+import { ingredientPropType } from '../../../../utils/prop-types';
 
 function Ingredient({ ingredient, openModal }) {
     const [, dragRef] = useDrag({
@@ -26,21 +27,7 @@ function Ingredient({ ingredient, openModal }) {
 }
 
 Ingredient.propTypes = {
-    ingredient: PropTypes.shape({
-        _id: PropTypes.string,
-        name: PropTypes.string,
-        type: PropTypes.string,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        calories: PropTypes.number,
-        price: PropTypes.number,
-        image: PropTypes.string,
-        image_mobile: PropTypes.string,
-        image_large: PropTypes.string,
-        __v: PropTypes.number,
-        amount: PropTypes.number
-    }).isRequired,
+    ingredient: ingredientPropType.isRequired,
     openModal: PropTypes.func.isRequired,
 };
 

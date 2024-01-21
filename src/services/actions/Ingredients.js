@@ -1,14 +1,11 @@
-import { URL_INGREDIENTS, SET_INGREDIENTS, INCREMENT_AMOUNT, DECREMENT_AMOUNT } from '../../utils/const';
+import { BASE_URL, SET_INGREDIENTS, INCREMENT_AMOUNT, DECREMENT_AMOUNT } from '../../utils/const';
+import { checkResponse } from '../../utils/functions';
 
-function download() {
+function getIngredients() {
   return (dispatch) => {
-    fetch(URL_INGREDIENTS)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Ошибка!');
-        }
-        return res.json();
-      })
+    fetch(`${BASE_URL}/ingredients`)
+      .then(checkResponse)
+      .then(res => res.json())
       .then(ingredients => {
         const ingredientsWithAmount = ingredients.data.map(item => ({ ...item, amount: 0 }));
         dispatch(setIngredients(ingredientsWithAmount));
@@ -40,4 +37,4 @@ function decrementAmount(id) {
   };
 };
 
-export { download, setIngredients, incrementAmount, decrementAmount };
+export { getIngredients, setIngredients, incrementAmount, decrementAmount };

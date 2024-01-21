@@ -1,14 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './BurgerIngredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Ingredients } from './Ingredients/Ingredients';
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from './IngredientDetails/IngredientDetails';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
 
-function BurgerIngredients({ ingredients }) {
-  // Создаем состояние current с начальным значением 'one'
-  const [current, setCurrent] = useState('one');
+function BurgerIngredients() {
+  const ingredients = useSelector((store) => store.ingredients);
+  // Создаем состояние current с начальным значением 'buns'
+  const [current, setCurrent] = useState('buns');
+
+  const { ref: bunsRef, inView: bunsInView } = useInView({ threshold: 0.25 });
+  const { ref: saucesRef, inView: saucesInView } = useInView({ threshold: 0.25 });
+  const { ref: mainRef, inView: mainInView } = useInView({ threshold: 0.25 });
+
+  useEffect(() => {
+    if (bunsInView) {
+      setCurrent('buns');
+    } else if (saucesInView) {
+      setCurrent('sauces');
+    } else if (mainInView) {
+      setCurrent('main');
+    }
+  }, [bunsInView, saucesInView, mainInView]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
@@ -28,47 +44,30 @@ function BurgerIngredients({ ingredients }) {
   return (
     <section className={styles.burgerIngredients}>
       <h1 className="text text_type_main-large mb-5">Соберите бургер </h1>
-      <div style={{ display: 'flex' }}>
-        <Tab value="one" active={current === 'one'} onClick={() => setCurrent('one')}>
+      <div className={styles.burgerTabs}>
+        <Tab value="buns" active={current === 'buns'}>
           Булки
         </Tab>
-        <Tab value="two" active={current === 'two'} onClick={() => setCurrent('two')}>
+        <Tab value="sauces" active={current === 'sauces'}>
           Соусы
         </Tab>
-        <Tab value="three" active={current === 'three'} onClick={() => setCurrent('three')}>
+        <Tab value="main" active={current === 'main'}>
           Начинки
         </Tab>
       </div>
       <div className={styles.customScroll}>
         <h2 className="text text_type_main-medium pt-10 pb-6">Булки</h2>
-        <Ingredients openModal={openModal} ingredientsList={buns} />
+        <Ingredients openModal={openModal} ingredientsList={buns} ref={bunsRef} />
         <h2 className="text text_type_main-medium pt-10 pb-6">Соусы</h2>
-        <Ingredients openModal={openModal} ingredientsList={sauces} />
-        <h2 className="text text_type_main-medium pt-10 pb-6">Начинки</h2>
-        <Ingredients openModal={openModal} ingredientsList={main} />
+        <Ingredients openModal={openModal} ingredientsList={sauces} ref={saucesRef} />
+        <h2 className="text text_type_main-medium pt-10 pb-6" >Начинки</h2>
+        <Ingredients openModal={openModal} ingredientsList={main} ref={mainRef} />
       </div>
       <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <IngredientDetails ingredient={selectedIngredient} />
       </Modal>
     </section>
   );
-};
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number
-  })).isRequired
 };
 
 export { BurgerIngredients };

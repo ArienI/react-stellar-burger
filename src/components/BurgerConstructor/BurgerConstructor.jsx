@@ -7,13 +7,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { addIngredient, deleteIngredient } from '../../services/actions/Burger';
 import { decrementAmount, incrementAmount } from '../../services/actions/Ingredients';
-import { upload } from '../../services/actions/Order';
+import { sendOrder } from '../../services/actions/Order';
 import { BurgerIngredient } from './BurgerIngredient/BurgerIngredient';
-import PropTypes from 'prop-types';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const burger = useSelector((store) => store.Burger);
+  const burger = useSelector((store) => store.burger);
   const anyBuns = burger.find(item => item.type === 'bun');
   const anyIngredients = burger.some(item => item.type !== 'bun');
 
@@ -107,7 +106,7 @@ function BurgerConstructor() {
         <div className={styles.buttonContainer}>
           {/* onClick={() => setShowPopup(true)}- это проп onClick, который принимает стрелочную функцию. При клике на кнопку, вызывается функция, и внутри нее вызывается setShowPopup с аргументом true, и это меняет состояние showPopup на true, для отображения модального окна*/}
           <Button onClick={() => {
-            dispatch(upload(burger.map((item) => item._id)));
+            dispatch(sendOrder(burger.map((item) => item._id)));
             setShowPopup(true)
           }}
             type="primary" size="large" htmlType="button"
@@ -125,24 +124,6 @@ function BurgerConstructor() {
 
     </section>
   );
-};
-
-BurgerIngredient.propTypes = {
-  index: PropTypes.number.isRequired,
-  item: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number
-  }).isRequired
 };
 
 export { BurgerConstructor };

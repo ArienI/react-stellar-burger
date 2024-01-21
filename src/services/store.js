@@ -6,9 +6,9 @@ import { burgerReducer } from './reducers/Burger';
 import { orderReducer } from './reducers/Order';
 
 const rootReducer = combineReducers({
-  Ingredients: ingredientsReducer,
-  Burger: burgerReducer,
-  Order: orderReducer
+  ingredients: ingredientsReducer,
+  burger: burgerReducer,
+  order: orderReducer
 });
 
 const store = createStore(

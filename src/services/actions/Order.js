@@ -1,18 +1,15 @@
-import { URL_ORDERS, POST_ORDER } from '../../utils/const';
+import { BASE_URL, POST_ORDER } from '../../utils/const';
+import { checkResponse } from '../../utils/functions';
 
-function upload(burgerIngredients) {
+function sendOrder(burgerIngredients) {
   return (dispatch) => {
-    fetch(URL_ORDERS, {
+    fetch(`${BASE_URL}/orders`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ingredients: burgerIngredients })
     })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Ошибка!');
-        }
-        return res.json();
-      })
+      .then(checkResponse)
+      .then(res => res.json())
       .then(resData => {
         dispatch(setOrder(resData));
       })
@@ -26,4 +23,4 @@ function setOrder(data) {
   return { type: POST_ORDER, order: data };
 };
 
-export { upload, setOrder };
+export { sendOrder, setOrder };
