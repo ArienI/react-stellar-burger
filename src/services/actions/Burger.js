@@ -15,4 +15,12 @@ function deleteIngredient(index) {
   };
 };
 
-export { addIngredient, deleteIngredient };
+function moveIngredient(startPosition, endPosition) {
+  return {
+    type: MOVE_INGREDIENT,
+    startPosition,
+    endPosition
+  };
+};
+
+export { addIngredient, deleteIngredient, moveIngredient };

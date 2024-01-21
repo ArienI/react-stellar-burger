@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import styles from './BurgerConstructor.module.css';
-import { ConstructorElement, Button, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { OrderDetails } from './OrderDetails/OrderDetails';
 import { Modal } from '../Modal/Modal';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,6 +8,8 @@ import { useDrop } from 'react-dnd';
 import { addIngredient, deleteIngredient } from '../../services/actions/Burger';
 import { decrementAmount, incrementAmount } from '../../services/actions/Ingredients';
 import { upload } from '../../services/actions/Order';
+import { BurgerIngredient } from './BurgerIngredient/BurgerIngredient';
+import PropTypes from 'prop-types';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -71,18 +73,11 @@ function BurgerConstructor() {
                 burger.map((item, index) => {
                   if (item.type !== 'bun') {
                     return (
-                      <div className={`${styles.constructorIngredient} pr-2 pb-4`} key={item.newID}>
-                        <DragIcon type="primary" />
-                        <ConstructorElement
-                          text={item.name}
-                          price={item.price}
-                          thumbnail={item.image}
-                          handleClose={() => {
-                            dispatch(decrementAmount(item._id));
-                            dispatch(deleteIngredient(index));
-                          }}
-                        />
-                      </div>
+                      <BurgerIngredient
+                        key={item.newID}
+                        index={index}
+                        item={item}
+                      />
                     );
                   }
                   return null;
@@ -131,4 +126,23 @@ function BurgerConstructor() {
     </section>
   );
 };
+
+BurgerIngredient.propTypes = {
+  index: PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    calories: PropTypes.number,
+    price: PropTypes.number,
+    image: PropTypes.string,
+    image_mobile: PropTypes.string,
+    image_large: PropTypes.string,
+    __v: PropTypes.number
+  }).isRequired
+};
+
 export { BurgerConstructor };
