@@ -14,13 +14,13 @@ function ingredientsReducer(state = ingredients, action) {
       return action.ingredientsList;
     case INCREMENT_AMOUNT:
       return state.map(ingredient =>
-        ingredient._id === action.ingredientID
+        ingredient._id === action.id
           ? updateIngredientAmount(ingredient, 1)
           : ingredient
       );
     case DECREMENT_AMOUNT:
       return state.map(ingredient =>
-        ingredient._id === action.ingredientID
+        ingredient._id === action.id
           ? updateIngredientAmount(ingredient, -1)
           : ingredient
       );

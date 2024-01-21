@@ -1,0 +1,23 @@
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: url('../../../../images/cat-cursor.png'), auto;
+  gap: 4px;
+  text-align: center;
+  position: relative;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

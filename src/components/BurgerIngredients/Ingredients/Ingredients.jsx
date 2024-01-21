@@ -1,22 +1,12 @@
+import { Ingredient } from './Ingredient/Ingredient';
 import styles from './Ingredients.module.css';
-import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
 function Ingredients({ openModal, ingredientsList }) {
   return (
     <div className={`${styles.columns} pl-4 pr-4`}>
       {ingredientsList.map((ingredient) => (
-        <div className={styles.column} key={ingredient._id} onClick={() => openModal(ingredient)}>
-          <img src={ingredient.image} className={styles.image} alt={ingredient.name} />
-          <div className={styles.price}>
-            <p className="text text_type_digits-default">{ingredient.price}</p>
-            <CurrencyIcon type="primary" />
-          </div>
-          <p className="text text_type_main-default">{ingredient.name}</p>
-          <div className={styles.counter}>
-            <Counter count={4} size="default" />
-          </div>
-        </div>
+        <Ingredient key={ingredient._id} ingredient={ingredient} openModal={openModal} />
       ))}
     </div>
   );
