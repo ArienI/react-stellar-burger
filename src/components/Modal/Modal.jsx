@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 const modalDOM = document.getElementById('modal');
 
 // { show, onClose, children } - три пропса:   show- (true или false)указывает, должен ли компонент Modal отображаться; onClose-  функция закрыть модальное окно;  children- специальный пропс включает в себя все элементы, которые внутри JSX тегов компонента Modal
-function Modal({ show, onClose, children }) {
+function Modal({ onClose, children }) {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -16,17 +16,12 @@ function Modal({ show, onClose, children }) {
       }
     };
 
-    if (show) {
-      document.addEventListener('keydown', handleKeyDown);
-    }
+    document.addEventListener('keydown', handleKeyDown);
+
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [show, onClose]);
-
-  if (!show) {
-    return null;
-  }
+  }, [onClose]);
 
   return createPortal(
     (
@@ -46,7 +41,6 @@ function Modal({ show, onClose, children }) {
 };
 
 Modal.propTypes = {
-  show: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
   onClose: PropTypes.func.isRequired
 };

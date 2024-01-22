@@ -5,7 +5,6 @@ function getIngredients() {
   return (dispatch) => {
     fetch(`${BASE_URL}/ingredients`)
       .then(checkResponse)
-      .then(res => res.json())
       .then(ingredients => {
         const ingredientsWithAmount = ingredients.data.map(item => ({ ...item, amount: 0 }));
         dispatch(setIngredients(ingredientsWithAmount));

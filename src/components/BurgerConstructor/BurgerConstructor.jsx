@@ -28,7 +28,7 @@ function BurgerConstructor() {
 
   // useState- хук для управления состоянием, вызывается с начальным состоянием
   // showPopup- хранит текущее состояние, setShowPopup- функция позволяющая изменить это состояние. Начальное значение для showPopup-false
-  const [showPopup, setShowPopup] = useState(false);
+  const [isShowPopup, setIsShowPopup] = useState(false);
 
   const handleDrop = (ingredient) => {
     if (ingredient.type === 'bun' && anyBuns) {
@@ -107,18 +107,21 @@ function BurgerConstructor() {
           {/* onClick={() => setShowPopup(true)}- это проп onClick, который принимает стрелочную функцию. При клике на кнопку, вызывается функция, и внутри нее вызывается setShowPopup с аргументом true, и это меняет состояние showPopup на true, для отображения модального окна*/}
           <Button onClick={() => {
             dispatch(sendOrder(burger.map((item) => item._id)));
-            setShowPopup(true)
+            setIsShowPopup(true)
           }}
             type="primary" size="large" htmlType="button"
             disabled={!anyBuns || !anyIngredients}
           >
             Оформить заказ
           </Button>
-          {/* show={showPopup} -проп контролирует должен ли компонент Modal отображаться или быть скрытым. Когда showPopup равно true, модальное окно будет показано */}
           {/* onClose={() => setShowPopup(false)}- проп, который представляет функцию, которая будет вызвана, когда нужно закрытьь модальное окно. Функция setShowPopup(false) изменит состояние showPopup на false, что приведёт к закрытию модального окна.  */}
-          <Modal show={showPopup} onClose={() => setShowPopup(false)}>
-            <OrderDetails />
-          </Modal>
+          {
+            isShowPopup && (
+              <Modal onClose={() => setIsShowPopup(false)}>
+                <OrderDetails />
+              </Modal>
+            )
+          }
         </div>
       </div>
 

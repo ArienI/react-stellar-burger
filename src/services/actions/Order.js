@@ -9,7 +9,6 @@ function sendOrder(burgerIngredients) {
       body: JSON.stringify({ ingredients: burgerIngredients })
     })
       .then(checkResponse)
-      .then(res => res.json())
       .then(resData => {
         dispatch(setOrder(resData));
       })

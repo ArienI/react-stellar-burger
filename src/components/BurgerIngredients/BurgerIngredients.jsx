@@ -26,12 +26,12 @@ function BurgerIngredients() {
     }
   }, [bunsInView, saucesInView, mainInView]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShowPopup, setIsShowPopup] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState(null);
 
-  const openModal = (ingredient) => {
+  function openPopup(ingredient) {
     setSelectedIngredient(ingredient);
-    setIsModalOpen(true);
+    setIsShowPopup(true);
   };
 
   // Фильтруем массив и выбираем булочки
@@ -57,15 +57,19 @@ function BurgerIngredients() {
       </div>
       <div className={styles.customScroll}>
         <h2 className="text text_type_main-medium pt-10 pb-6">Булки</h2>
-        <Ingredients openModal={openModal} ingredientsList={buns} ref={bunsRef} />
+        <Ingredients openModal={openPopup} ingredientsList={buns} ref={bunsRef} />
         <h2 className="text text_type_main-medium pt-10 pb-6">Соусы</h2>
-        <Ingredients openModal={openModal} ingredientsList={sauces} ref={saucesRef} />
+        <Ingredients openModal={openPopup} ingredientsList={sauces} ref={saucesRef} />
         <h2 className="text text_type_main-medium pt-10 pb-6" >Начинки</h2>
-        <Ingredients openModal={openModal} ingredientsList={main} ref={mainRef} />
+        <Ingredients openModal={openPopup} ingredientsList={main} ref={mainRef} />
       </div>
-      <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <IngredientDetails ingredient={selectedIngredient} />
-      </Modal>
+      {
+        isShowPopup && (
+          <Modal onClose={() => setIsShowPopup(false)}>
+            <IngredientDetails ingredient={selectedIngredient} />
+          </Modal>
+        )
+      }
     </section>
   );
 };
