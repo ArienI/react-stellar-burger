@@ -1,3 +1,4 @@
+import { ingredientPropType } from '../../../utils/prop-types';
 import styles from './IngredientDetails.module.css';
 import PropTypes from 'prop-types';
 
@@ -16,15 +17,15 @@ function IngredientDetails({ ingredient }) {
           <p className="text text_type_main-default text_color_inactive">{ingredient.calories}</p>
         </div>
         <div>
-          <p className="text text_type_main-default text_color_inactive">Белки:</p>
+          <p className="text text_type_main-default text_color_inactive">Белки, г</p>
           <p className="text text_type_main-default text_color_inactive">{ingredient.proteins}</p>
         </div>
         <div>
-          <p className="text text_type_main-default text_color_inactive">Жиры:</p>
+          <p className="text text_type_main-default text_color_inactive">Жиры, г</p>
           <p className="text text_type_main-default text_color_inactive">{ingredient.fat}</p>
         </div>
         <div>
-          <p className="text text_type_main-default text_color_inactive">Углеводы:</p>
+          <p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
           <p className="text text_type_main-default text_color_inactive">{ingredient.carbohydrates}</p>
         </div>
       </div>
@@ -34,15 +35,7 @@ function IngredientDetails({ ingredient }) {
 
 // Валидация пропсов
 IngredientDetails.propTypes = {
-  ingredient: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    calories: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired
-  })
+  ingredient: ingredientPropType
 };
 
 export { IngredientDetails };

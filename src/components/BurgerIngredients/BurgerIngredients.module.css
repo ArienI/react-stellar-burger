@@ -28,3 +28,7 @@ li {
 .customScroll::-webkit-scrollbar-thumb {
   background-color: var(--text-inactive-color);
 }
+
+.burgerTabs {
+  display: flex;
+}
