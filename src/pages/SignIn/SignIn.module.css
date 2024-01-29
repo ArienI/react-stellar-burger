@@ -1,0 +1,55 @@
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--background-alt);
+}
+
+.signIn {
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.text_type_main-medium {
+  font-family: 'Jet Brains Mono';
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.link .item {
+  display: block;
+  max-width: 480px;
+}
+
+.item p,
+.item a {
+  display: inline;
+  margin-right: 8px;
+}
+
+.text {
+  margin: 0;
+  padding: 0;
+}
+
+.text_type_main-default {
+  font-family: 'Jet Brains Mono';
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: normal;
+}
+
+.text_color {
+  color: var(--text-dark-grey-secondary-text, #8585ad);
+}
