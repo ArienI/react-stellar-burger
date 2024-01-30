@@ -7,6 +7,7 @@ import Registration from '../../pages/Registration';
 import ForgotPassword from '../../pages/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword';
 import Profile from '../../pages/Profile';
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
@@ -15,8 +16,8 @@ function App() {
         <AppHeader />
         <Routes>
           <Route index element={<Main />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/login" element={<ProtectedRoute redirectToHomeIfLoggedIn><Login /></ProtectedRoute>} />
           <Route path="/register" element={<Registration />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
