@@ -2,7 +2,7 @@ import styles from './Main.module.css';
 import { BurgerConstructor } from '../BurgerConstructor/BurgerConstructor';
 import { BurgerIngredients } from '../BurgerIngredients/BurgerIngredients';
 import { useEffect } from 'react';
-import { getIngredients } from '../../services/actions/Ingredients';
+import { getIngredients } from '../../services/actions/ingredientsActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';

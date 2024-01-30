@@ -5,9 +5,9 @@ import { OrderDetails } from './OrderDetails/OrderDetails';
 import { Modal } from '../Modal/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { addIngredient, deleteIngredient } from '../../services/actions/Burger';
-import { decrementAmount, incrementAmount } from '../../services/actions/Ingredients';
-import { sendOrder } from '../../services/actions/Order';
+import { addIngredient, deleteIngredient } from '../../services/actions/burgerActions';
+import { decrementAmount, incrementAmount } from '../../services/actions/ingredientsActions';
+import { sendOrder } from '../../services/actions/orderActions';
 import { BurgerIngredient } from './BurgerIngredient/BurgerIngredient';
 
 function BurgerConstructor() {
