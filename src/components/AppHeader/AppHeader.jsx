@@ -11,7 +11,7 @@ function AppHeader() {
           <MenuLink icon={ListIcon} text="Лента заказов" to="/orders" />
         </nav>
         <Logo />
-        <MenuLink icon={ProfileIcon} text="Личный кабинет" to="/login" />
+        <MenuLink icon={ProfileIcon} text="Личный кабинет" to="/profile" />
       </div>
     </header>
   );

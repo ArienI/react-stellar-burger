@@ -1,9 +1,9 @@
-import { BASE_URL, POST_ORDER } from '../../utils/const';
+import { API_URL, POST_ORDER } from '../../utils/const';
 import { checkResponse } from '../../utils/functions';
 
 function sendOrder(burgerIngredients) {
   return (dispatch) => {
-    fetch(`${BASE_URL}/orders`, {
+    fetch(`${API_URL}/orders`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ingredients: burgerIngredients })

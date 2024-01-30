@@ -15,3 +15,18 @@
 .link {
   text-decoration: none;
 }
+
+.grid {
+  display: flex;
+}
+
+.profileMenu {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  gap: 48px
+}
+
+.profileLink {
+  text-decoration: none;
+}

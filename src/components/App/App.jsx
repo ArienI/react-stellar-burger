@@ -6,6 +6,7 @@ import { Login } from '../../pages/Login';
 import Registration from '../../pages/Registration';
 import ForgotPassword from '../../pages/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword';
+import Profile from '../../pages/Profile';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <AppHeader />
         <Routes>
           <Route index element={<Main />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
