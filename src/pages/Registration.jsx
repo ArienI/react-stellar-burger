@@ -60,4 +60,4 @@ function Registration() {
   );
 };
 
-export default Registration;
+export { Registration };

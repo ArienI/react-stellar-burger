@@ -3,10 +3,10 @@ import { AppHeader } from '../AppHeader/AppHeader';
 import { Main } from '../Main/Main';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { Login } from '../../pages/Login';
-import Registration from '../../pages/Registration';
-import ForgotPassword from '../../pages/ForgotPassword';
-import ResetPassword from '../../pages/ResetPassword';
-import Profile from '../../pages/Profile';
+import { Registration } from '../../pages/Registration';
+import { ForgotPassword } from '../../pages/ForgotPassword';
+import { ResetPassword } from '../../pages/ResetPassword';
+import { Profile } from '../../pages/Profile';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
 function App() {

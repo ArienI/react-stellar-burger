@@ -13,6 +13,7 @@ function Profile() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
+  console.log('PROFILE');
   useEffect(() => {
     if (Object.keys(userData).length === 0) {
       return null
@@ -126,4 +127,4 @@ function Profile() {
   );
 };
 
-export default Profile;
+export { Profile };

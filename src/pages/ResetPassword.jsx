@@ -51,4 +51,4 @@ function ResetPassword() {
   );
 };
 
-export default ResetPassword;
+export { ResetPassword };
