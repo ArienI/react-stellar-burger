@@ -2,10 +2,10 @@ import styles from './App.module.css';
 import { AppHeader } from '../AppHeader/AppHeader';
 import { Main } from '../Main/Main';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import { Login } from '../../pages/Login/Login';
-import Registration from '../../pages/Registration/Registration';
-import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
-import ResetPassword from '../../pages/ResetPassword/ResetPassword';
+import { Login } from '../../pages/Login';
+import Registration from '../../pages/Registration';
+import ForgotPassword from '../../pages/ForgotPassword';
+import ResetPassword from '../../pages/ResetPassword';
 
 function App() {
   return (

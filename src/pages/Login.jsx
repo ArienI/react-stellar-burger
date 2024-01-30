@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './Login.module.css';
+import styles from './pages.module.css';
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 
