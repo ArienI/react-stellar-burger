@@ -2,8 +2,11 @@ import styles from './pages.module.css';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { registerNewUser } from '../services/actions/authenticationActions';
+import { useDispatch } from 'react-redux';
 
 function Registration() {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,6 +25,7 @@ function Registration() {
 
   function onSubmitForm(event) {
     event.preventDefault();
+    dispatch(registerNewUser({ name, email, password }));
   };
 
   return (

@@ -123,6 +123,31 @@ function updateUser(data) {
   };
 };
 
+function registerNewUser(data) {
+  return (dispatch) => {
+    fetch(`${API_URL}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: data.name,
+        email: data.email,
+        password: data.password
+      })
+    })
+      .then(checkResponse)
+      .then(response => {
+        localStorage.setItem('accessToken', response.accessToken);
+        const currentTime = new Date().getTime();
+        localStorage.setItem('accessTokenCreationTime', currentTime);
+        localStorage.setItem('refreshToken', response.refreshToken);
+        dispatch(loginUser(response));
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+};
+
 function loginUser(data) {
   return {
     type: ACTION_TYPE_LOGIN,
@@ -149,4 +174,4 @@ function setUserLoggedIn() {
   };
 };
 
-export { login, logout, checkAndRefreshTokens, getUser, updateUser }
+export { login, logout, checkAndRefreshTokens, getUser, updateUser, registerNewUser }
