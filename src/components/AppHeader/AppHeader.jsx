@@ -4,7 +4,7 @@ import { MenuLink } from './MenuLink/MenuLink';
 import { useSelector } from 'react-redux';
 
 function AppHeader() {
-  const authentication = useSelector((state) => state.authentication);
+  const userEmail = useSelector((state) => state.authentication.user.email);
 
   return (
     <header className={`${styles.header} m-10`}>
@@ -14,7 +14,7 @@ function AppHeader() {
           <MenuLink icon={ListIcon} text="Лента заказов" to="/orders" />
         </nav>
         <Logo />
-        <MenuLink icon={ProfileIcon} text={authentication.isLoggedIn ? authentication.user.email : "Личный кабинет"} to="/profile" />
+        <MenuLink icon={ProfileIcon} text={userEmail ? userEmail : "Личный кабинет"} to="/profile" />
       </div>
     </header>
   );

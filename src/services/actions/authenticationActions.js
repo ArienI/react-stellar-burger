@@ -100,6 +100,29 @@ function getUser() {
   };
 };
 
+function updateUser(data) {
+  return (dispatch) => {
+    fetch(`${API_URL}/auth/user`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': localStorage.getItem('accessToken')
+      },
+      body: JSON.stringify({
+        name: data.name,
+        email: data.email
+      })
+    })
+      .then(checkResponse)
+      .then(response => {
+        dispatch(setUserData(response));
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+};
+
 function loginUser(data) {
   return {
     type: ACTION_TYPE_LOGIN,
@@ -126,4 +149,4 @@ function setUserLoggedIn() {
   };
 };
 
-export { login, logout, checkAndRefreshTokens, getUser }
+export { login, logout, checkAndRefreshTokens, getUser, updateUser }

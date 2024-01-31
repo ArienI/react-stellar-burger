@@ -3,7 +3,7 @@ import styles from './pages.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getUser, logout } from '../services/actions/authenticationActions';
+import { getUser, logout, updateUser } from '../services/actions/authenticationActions';
 import { LoadingIndicator } from './LoadingIndicator';
 
 function Profile() {
@@ -46,6 +46,7 @@ function Profile() {
   function onSubmitForm(event) {
     event.preventDefault();
     setActivateButtons(false);
+    dispatch(updateUser({ name, email }));
   }
 
   useEffect(() => {
