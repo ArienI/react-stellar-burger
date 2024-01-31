@@ -1,9 +1,13 @@
 import styles from './pages.module.css';
 import { Button, EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
+import { requestPasswordReset } from '../services/actions/authenticationActions';
 
 function ForgotPassword() {
+  const dispatch = useDispatch();
+  const passwordResetCodeSent = useSelector((state) => state.authentication.passwordResetCodeSent);
   const [email, setEmail] = useState('');
 
   function onEmailChange(event) {
@@ -12,7 +16,18 @@ function ForgotPassword() {
 
   function onSubmitForm(event) {
     event.preventDefault();
+    dispatch(requestPasswordReset({ email }));
   };
+
+  if (passwordResetCodeSent) {
+    return (
+      <Navigate
+        to="/reset-password"
+        state={{ previousPage: 'forgot-password' }}
+        replace={true}
+      />
+    );
+  }
 
   return (
     <div className={styles.center}>

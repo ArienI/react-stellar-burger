@@ -1,4 +1,4 @@
-import { API_URL, ACTION_TYPE_LOGIN, ACTION_TYPE_LOGOUT, ACCESS_TOKEN_EXPIRATION_TIME_IN_MIN, ACTION_TYPE_SET_USER_DATA, ACTION_TYPE_SET_USER_LOGGED_IN } from '../../utils/const';
+import { API_URL, ACTION_TYPE_LOGIN, ACTION_TYPE_LOGOUT, ACCESS_TOKEN_EXPIRATION_TIME_IN_MIN, ACTION_TYPE_SET_USER_DATA, ACTION_TYPE_SET_USER_LOGGED_IN, ACTION_TYPE_SET_PASSWORD_RESET_CODE_SENT, ACTION_TYPE_SET_PASSWORD_RESET } from '../../utils/const';
 import { checkResponse } from '../../utils/functions';
 
 function login(data) {
@@ -148,6 +148,45 @@ function registerNewUser(data) {
   };
 };
 
+function requestPasswordReset(data) {
+  return (dispatch) => {
+    fetch(`${API_URL}/password-reset`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: data.email
+      })
+    })
+      .then(checkResponse)
+      .then(response => {
+        dispatch(setPasswordResetCodeSent(true));
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+};
+
+function resetPassword(data) {
+  return (dispatch) => {
+    fetch(`${API_URL}/password-reset/reset`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        password: data.password,
+        token: data.token
+      })
+    })
+      .then(checkResponse)
+      .then(response => {
+        dispatch(setPasswordReset(true));
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+};
+
 function loginUser(data) {
   return {
     type: ACTION_TYPE_LOGIN,
@@ -174,4 +213,18 @@ function setUserLoggedIn() {
   };
 };
 
-export { login, logout, checkAndRefreshTokens, getUser, updateUser, registerNewUser }
+function setPasswordResetCodeSent(data) {
+  return {
+    type: ACTION_TYPE_SET_PASSWORD_RESET_CODE_SENT,
+    payload: data
+  };
+};
+
+function setPasswordReset(data) {
+  return {
+    type: ACTION_TYPE_SET_PASSWORD_RESET,
+    payload: data
+  };
+};
+
+export { login, logout, checkAndRefreshTokens, getUser, updateUser, registerNewUser, requestPasswordReset, resetPassword, setPasswordResetCodeSent, setPasswordReset }

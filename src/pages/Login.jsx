@@ -3,7 +3,7 @@ import styles from './pages.module.css';
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '../services/actions/authenticationActions';
+import { login, setPasswordReset, setPasswordResetCodeSent } from '../services/actions/authenticationActions';
 
 function Login() {
   const dispatch = useDispatch();
@@ -22,6 +22,10 @@ function Login() {
     event.preventDefault();
     dispatch(login({ email, password }));
   };
+
+  // если восстанавливали пароль, сбрасываем состояние
+  dispatch(setPasswordResetCodeSent(false));
+  dispatch(setPasswordReset(false));
 
   return (
     <div className={styles.center}>
