@@ -59,6 +59,7 @@ function checkAndRefreshTokens() {
       return Promise.resolve();
     }
 
+    // minutes * 60 * 1000 = milliseconds
     if (!accessToken || !accessTokenCreationTime || currentTime - accessTokenCreationTime > ACCESS_TOKEN_EXPIRATION_TIME_IN_MIN * 60 * 1000) {
       return fetch(`${API_URL}/auth/token`, {
         method: 'POST',
@@ -71,10 +72,16 @@ function checkAndRefreshTokens() {
           localStorage.setItem('accessTokenCreationTime', currentTime);
           localStorage.setItem('refreshToken', response.refreshToken);
         })
+        .then(() => {
+          dispatch(getUser());
+          dispatch(setUserLoggedIn());
+        })
         .catch(error => {
           console.error(error);
+          dispatch(logout());
         });
     } else {
+      dispatch(getUser());
       dispatch(setUserLoggedIn());
       return Promise.resolve();
     }

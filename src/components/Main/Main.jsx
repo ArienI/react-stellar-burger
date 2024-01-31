@@ -6,6 +6,7 @@ import { getIngredients } from '../../services/actions/ingredientsActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { LoadingIndicator } from '../../pages/LoadingIndicator';
 
 function Main() {
   const ingredients = useSelector((store) => store.ingredients);
@@ -13,10 +14,12 @@ function Main() {
 
   useEffect(() => {
     dispatch(getIngredients());
-  }, []);
+  }, [dispatch]);
 
   if (!ingredients) {
-    return <h1 className={styles.preloader}>Идёт Загрузка... =^.^=❤meow❤=^.^= ...</h1>;
+    return (
+      <LoadingIndicator />
+    );
   }
 
   return (

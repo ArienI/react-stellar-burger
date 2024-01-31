@@ -3,7 +3,7 @@ import styles from './pages.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getUser, logout, updateUser } from '../services/actions/authenticationActions';
+import { logout, updateUser } from '../services/actions/authenticationActions';
 import { LoadingIndicator } from './LoadingIndicator';
 
 function Profile() {
@@ -50,13 +50,9 @@ function Profile() {
   }
 
   useEffect(() => {
-    if (userData.email === null || userData.password === null) {
-      dispatch(getUser());
-    } else {
-      setEmail(userData.email);
-      setName(userData.name);
-    }
-  }, [userData, dispatch]);
+    setEmail(userData.email);
+    setName(userData.name);
+  }, [userData]);
 
   if (!userData || userData.email === null || userData.password === null) {
     return (<LoadingIndicator />);

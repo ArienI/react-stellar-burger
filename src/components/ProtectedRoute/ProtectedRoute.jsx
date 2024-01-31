@@ -6,7 +6,7 @@ import { checkAndRefreshTokens } from '../../services/actions/authenticationActi
 import { LoadingIndicator } from '../../pages/LoadingIndicator';
 
 // children: page - используем деструктуризацию чтобы обращаться к пропу не как children, а как page
-function ProtectedRoute({ children: page, redirectToHomeIfLoggedIn = false }) {
+function ProtectedRoute({ children: page, redirectToHomeIfLoggedIn = false, justRefreshTokens = false }) {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.authentication.isLoggedIn);
   const [isCheckingTokens, setIsCheckingTokens] = useState(true);
@@ -22,6 +22,10 @@ function ProtectedRoute({ children: page, redirectToHomeIfLoggedIn = false }) {
     return (<LoadingIndicator />);
   }
 
+  if (justRefreshTokens) {
+    return page;
+  }
+
   if (!isLoggedIn) {
     return redirectToHomeIfLoggedIn ? page : <Navigate to="/login" replace />;
   } else if (redirectToHomeIfLoggedIn) {
@@ -33,7 +37,8 @@ function ProtectedRoute({ children: page, redirectToHomeIfLoggedIn = false }) {
 
 ProtectedRoute.propTypes = {
   children: PropTypes.node.isRequired,
-  redirectToHomeIfLoggedIn: PropTypes.bool
+  redirectToHomeIfLoggedIn: PropTypes.bool,
+  justRefreshTokens: PropTypes.bool
 };
 
 export { ProtectedRoute };

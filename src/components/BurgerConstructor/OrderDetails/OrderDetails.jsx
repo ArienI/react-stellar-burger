@@ -1,16 +1,17 @@
 import { useSelector } from 'react-redux';
 import styles from './OrderDetails.module.css';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { LoadingIndicator } from '../../../pages/LoadingIndicator';
 
 function OrderDetails() {
   const order = useSelector((store) => store.order);
+
   if (Object.keys(order).length === 0) {
     return (
-      <div>
-        <h1>Ждите</h1>
-      </div>
+      <LoadingIndicator />
     );
   }
+
   return (
     <div className={styles.card}>
       <p className="text text_type_digits-large">{order.order.number}</p>

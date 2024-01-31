@@ -17,7 +17,11 @@ function App() {
         <Routes>
           <Route
             index
-            element={<Main />}
+            element={
+              <ProtectedRoute justRefreshTokens>
+                <Main />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/profile"
