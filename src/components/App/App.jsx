@@ -15,16 +15,54 @@ function App() {
       <HashRouter>
         <AppHeader />
         <Routes>
-          <Route index element={<Main />} />
-          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/login" element={<ProtectedRoute redirectToHomeIfLoggedIn><Login /></ProtectedRoute>} />
-          <Route path="/register" element={<Registration />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route
+            index
+            element={<Main />}
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRoute redirectToHomeIfLoggedIn>
+                <Login />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <ProtectedRoute redirectToHomeIfLoggedIn>
+                <Registration />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/forgot-password"
+            element={
+              <ProtectedRoute redirectToHomeIfLoggedIn>
+                <ForgotPassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              <ProtectedRoute redirectToHomeIfLoggedIn>
+                <ResetPassword />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </HashRouter>
     </div>
   );
 }
 
-export default App;
+export { App };
