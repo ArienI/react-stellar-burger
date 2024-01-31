@@ -3,7 +3,8 @@ import styles from './pages.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { logout } from '../services/actions/authenticationActions';
+import { getUser, logout } from '../services/actions/authenticationActions';
+import { LoadingIndicator } from './LoadingIndicator';
 
 function Profile() {
   const userData = useSelector((state) => state.authentication.user);
@@ -12,16 +13,6 @@ function Profile() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-
-  console.log('PROFILE');
-  useEffect(() => {
-    if (Object.keys(userData).length === 0) {
-      return null
-    } else {
-      setEmail(userData.email);
-      setName(userData.name);
-    }
-  }, [dispatch, userData]);
 
   function onEmailChange(e) {
     setEmail(e.target.value);
@@ -55,6 +46,19 @@ function Profile() {
   function onSubmitForm(event) {
     event.preventDefault();
     setActivateButtons(false);
+  }
+
+  useEffect(() => {
+    if (userData.email === null || userData.password === null) {
+      dispatch(getUser());
+    } else {
+      setEmail(userData.email);
+      setName(userData.name);
+    }
+  }, [userData, dispatch]);
+
+  if (!userData || userData.email === null || userData.password === null) {
+    return (<LoadingIndicator />);
   }
 
   return (

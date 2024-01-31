@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { checkAndRefreshTokens } from '../../services/actions/authenticationActions';
+import { LoadingIndicator } from '../../pages/LoadingIndicator';
 
 // children: page - используем деструктуризацию чтобы обращаться к пропу не как children, а как page
 function ProtectedRoute({ children: page, redirectToHomeIfLoggedIn = false }) {
@@ -18,7 +19,7 @@ function ProtectedRoute({ children: page, redirectToHomeIfLoggedIn = false }) {
   }, [dispatch]);
 
   if (isCheckingTokens) {
-    return null;
+    return (<LoadingIndicator />);
   }
 
   if (!isLoggedIn) {
