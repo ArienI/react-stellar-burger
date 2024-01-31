@@ -12,3 +12,8 @@ export const POST_ORDER = 'POST_ORDER';
 // authentication actions
 export const ACTION_TYPE_LOGIN = 'ACTION_TYPE_LOGIN';
 export const ACTION_TYPE_LOGOUT = 'ACTION_TYPE_LOGOUT';
+export const GET_USER = 'GET_USER';
+export const UPDATE_USER = 'UPDATE_USER';
+
+// other
+export const ACCESS_TOKEN_EXPIRATION_TIME_IN_MIN = 15;

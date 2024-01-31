@@ -5,7 +5,7 @@ const authenticationDetails = {
     email: null,
     password: null,
   },
-  isLoggedIn: false,
+  isLoggedIn: false
 };
 
 function authenticationReducer(state = authenticationDetails, action) {
