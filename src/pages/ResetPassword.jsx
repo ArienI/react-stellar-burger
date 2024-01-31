@@ -33,7 +33,8 @@ function ResetPassword() {
       <Navigate
         to="/forgot-password"
         replace={true}
-      />);
+      />
+    );
   }
 
   if (passwordReset) {
@@ -41,7 +42,8 @@ function ResetPassword() {
       <Navigate
         to="/login"
         replace={true}
-      />);
+      />
+    );
   }
 
   return (

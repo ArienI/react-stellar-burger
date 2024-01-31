@@ -9,12 +9,15 @@ import { addIngredient, deleteIngredient } from '../../services/actions/burgerAc
 import { decrementAmount, incrementAmount } from '../../services/actions/ingredientsActions';
 import { sendOrder } from '../../services/actions/orderActions';
 import { BurgerIngredient } from './BurgerIngredient/BurgerIngredient';
+import { Navigate } from 'react-router-dom';
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.authentication.isLoggedIn);
   const burger = useSelector((store) => store.burger);
   const anyBuns = burger.find(item => item.type === 'bun');
   const anyIngredients = burger.some(item => item.type !== 'bun');
+  const [redirectToLogin, setRedirectToLogin] = useState(false);
 
   function calculatePrice(ingredients) {
     const initialPrice = 0;
@@ -43,6 +46,25 @@ function BurgerConstructor() {
     accept: 'ingredient',
     drop: handleDrop
   });
+
+  function onOrderButtonClick() {
+    if (!isLoggedIn) {
+      // мы не можем рендерить компоненты в event handler,
+      // поэтому перенаправляем пользователя, используя state
+      setRedirectToLogin(true);
+    } else {
+      dispatch(sendOrder(burger.map((item) => item._id)));
+      setIsShowPopup(true)
+    }
+  }
+
+  if (redirectToLogin) {
+    return (
+      <Navigate
+        to="/login"
+      />
+    );
+  }
 
   return (
     <section className={styles.burgerConstructor} ref={dropRef}>
@@ -105,11 +127,11 @@ function BurgerConstructor() {
         </div>
         <div className={styles.buttonContainer}>
           {/* onClick={() => setShowPopup(true)}- это проп onClick, который принимает стрелочную функцию. При клике на кнопку, вызывается функция, и внутри нее вызывается setShowPopup с аргументом true, и это меняет состояние showPopup на true, для отображения модального окна*/}
-          <Button onClick={() => {
-            dispatch(sendOrder(burger.map((item) => item._id)));
-            setIsShowPopup(true)
-          }}
-            type="primary" size="large" htmlType="button"
+          <Button
+            onClick={onOrderButtonClick}
+            type="primary"
+            size="large"
+            htmlType="button"
             disabled={!anyBuns || !anyIngredients}
           >
             Оформить заказ
@@ -125,7 +147,7 @@ function BurgerConstructor() {
         </div>
       </div>
 
-    </section>
+    </section >
   );
 };
 
