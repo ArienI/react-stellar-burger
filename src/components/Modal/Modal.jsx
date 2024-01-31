@@ -7,8 +7,10 @@ import { useEffect } from 'react';
 
 const modalDOM = document.getElementById('modal');
 
-// { show, onClose, children } - три пропса:   show- (true или false)указывает, должен ли компонент Modal отображаться; onClose-  функция закрыть модальное окно;  children- специальный пропс включает в себя все элементы, которые внутри JSX тегов компонента Modal
-function Modal({ onClose, children }) {
+// { onClose, children } - два пропса:
+// onClose - функция закрыть модальное окно
+// children - специальный пропс, включает в себя все элементы, которые внутри JSX тегов компонента Modal
+function Modal({ children, onClose }) {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {

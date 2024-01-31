@@ -5,14 +5,17 @@ import { App } from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './services/store';
+import { HashRouter } from 'react-router-dom';
 
 const root = createRoot(document.getElementById('root'));
 
 root.render(
   <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <HashRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </HashRouter>
   </StrictMode>
 );
 

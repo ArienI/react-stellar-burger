@@ -6,33 +6,18 @@ import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from './IngredientDetails/IngredientDetails';
 import { useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom';
 
 function BurgerIngredients() {
+  const navigate = useNavigate();
   const ingredients = useSelector((store) => store.ingredients);
   // Создаем состояние current с начальным значением 'buns'
-  const [current, setCurrent] = useState('buns');
+  const [activeTab, setActiveTab] = useState('buns');
+  const [showPopup, setShowPopup] = useState(false);
 
   const { ref: bunsRef, inView: bunsInView } = useInView({ threshold: 0.25 });
   const { ref: saucesRef, inView: saucesInView } = useInView({ threshold: 0.25 });
   const { ref: mainRef, inView: mainInView } = useInView({ threshold: 0.25 });
-
-  useEffect(() => {
-    if (bunsInView) {
-      setCurrent('buns');
-    } else if (saucesInView) {
-      setCurrent('sauces');
-    } else if (mainInView) {
-      setCurrent('main');
-    }
-  }, [bunsInView, saucesInView, mainInView]);
-
-  const [isShowPopup, setIsShowPopup] = useState(false);
-  const [selectedIngredient, setSelectedIngredient] = useState(null);
-
-  function openPopup(ingredient) {
-    setSelectedIngredient(ingredient);
-    setIsShowPopup(true);
-  };
 
   // Фильтруем массив и выбираем булочки
   const buns = ingredients.filter((item) => item.type === 'bun');
@@ -41,17 +26,43 @@ function BurgerIngredients() {
   // Фильтруем массив и выбираем начинки
   const main = ingredients.filter((item) => item.type === 'main');
 
+  function openPopup(ingredient) {
+    setShowPopup(true);
+    navigate(
+      `/ingredients/${ingredient._id}`,
+      {
+        state: { ingredientPopupOpened: true }
+      }
+    );
+  };
+
+  function closePopup() {
+    setShowPopup(false);
+    // Возвращаемся на предыдущий маршрут
+    navigate(-1);
+  };
+
+  useEffect(() => {
+    if (bunsInView) {
+      setActiveTab('buns');
+    } else if (saucesInView) {
+      setActiveTab('sauces');
+    } else if (mainInView) {
+      setActiveTab('main');
+    }
+  }, [bunsInView, saucesInView, mainInView]);
+
   return (
     <section className={styles.burgerIngredients}>
       <h1 className="text text_type_main-large mb-5">Соберите бургер </h1>
       <div className={styles.burgerTabs}>
-        <Tab value="buns" active={current === 'buns'}>
+        <Tab value="buns" active={activeTab === 'buns'}>
           Булки
         </Tab>
-        <Tab value="sauces" active={current === 'sauces'}>
+        <Tab value="sauces" active={activeTab === 'sauces'}>
           Соусы
         </Tab>
-        <Tab value="main" active={current === 'main'}>
+        <Tab value="main" active={activeTab === 'main'}>
           Начинки
         </Tab>
       </div>
@@ -64,9 +75,9 @@ function BurgerIngredients() {
         <Ingredients openModal={openPopup} ingredientsList={main} ref={mainRef} />
       </div>
       {
-        isShowPopup && (
-          <Modal onClose={() => setIsShowPopup(false)}>
-            <IngredientDetails ingredient={selectedIngredient} />
+        showPopup && (
+          <Modal onClose={closePopup}>
+            <IngredientDetails />
           </Modal>
         )
       }
