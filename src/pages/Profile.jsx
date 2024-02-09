@@ -7,9 +7,9 @@ import { logout, updateUser } from '../services/actions/authenticationActions';
 import { LoadingIndicator } from './LoadingIndicator';
 
 function Profile() {
-  const userData = useSelector((state) => state.authentication.user);
-  const [activateButtons, setActivateButtons] = useState('');
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.authentication.user);
+  const [activateButtons, setActivateButtons] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -50,8 +50,8 @@ function Profile() {
   }
 
   useEffect(() => {
-    setEmail(userData.email);
-    setName(userData.name);
+    setEmail(userData.email || '');
+    setName(userData.name || '');
   }, [userData]);
 
   if (!userData || userData.email === null || userData.password === null) {
