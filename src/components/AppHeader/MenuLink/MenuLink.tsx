@@ -1,8 +1,13 @@
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import styles from './MenuLink.module.css';
 
-function MenuLink({ icon: Icon, text, to }) {
+type MenuLinkProps = {
+  icon: React.ComponentType<{ type: 'primary' | 'secondary' }>;
+  text: string;
+  to: string;
+};
+
+function MenuLink({ icon: Icon, text, to }: MenuLinkProps): React.ReactElement {
   return (
     <NavLink
       to={to}
@@ -20,11 +25,5 @@ function MenuLink({ icon: Icon, text, to }) {
     </NavLink>
   );
 }
-
-MenuLink.propTypes = {
-  icon: PropTypes.elementType.isRequired,
-  text: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired
-};
 
 export { MenuLink };

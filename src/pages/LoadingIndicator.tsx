@@ -1,6 +1,6 @@
 import styles from './pages.module.css';
 
-function LoadingIndicator() {
+function LoadingIndicator(): React.ReactElement {
   return (
     <div className={styles.center}>
       <h1 className='text text_type_main-large'>

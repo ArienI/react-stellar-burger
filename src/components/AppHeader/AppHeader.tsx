@@ -4,8 +4,8 @@ import { MenuLink } from './MenuLink/MenuLink';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-function AppHeader() {
-  const userEmail = useSelector((state) => state.authentication.user.email);
+function AppHeader(): React.ReactElement {
+  const userEmail = useSelector((state: any) => state.authentication.user.email);
 
   return (
     <header className={`${styles.header} m-10`}>

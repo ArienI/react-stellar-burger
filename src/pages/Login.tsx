@@ -1,25 +1,26 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './pages.module.css';
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login, setPasswordReset, setPasswordResetCodeSent } from '../services/actions/authenticationActions';
 
-function Login() {
+function Login(): React.ReactElement {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function onEmailChange(event) {
+  function onEmailChange(event: ChangeEvent<HTMLInputElement>) {
     setEmail(event.target.value);
   };
 
-  function onPasswordChange(event) {
+  function onPasswordChange(event: ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value);
   };
 
-  function onSubmitForm(event) {
+  function onSubmitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // @ts-ignore
     dispatch(login({ email, password }));
   };
 
