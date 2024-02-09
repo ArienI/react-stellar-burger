@@ -1,22 +1,25 @@
 import styles from './Main.module.css';
 import { BurgerConstructor } from '../BurgerConstructor/BurgerConstructor';
 import { BurgerIngredients } from '../BurgerIngredients/BurgerIngredients';
-import { useEffect } from 'react';
-import { getIngredients } from '../../services/actions/Ingredients';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { LoadingIndicator } from '../../pages/LoadingIndicator';
+import { useEffect } from 'react';
+import { checkAndRefreshTokens } from '../../services/actions/authenticationActions';
 
 function Main() {
-  const ingredients = useSelector((store) => store.ingredients);
   const dispatch = useDispatch();
+  const ingredients = useSelector((store) => store.ingredients);
 
   useEffect(() => {
-    dispatch(getIngredients());
+    dispatch(checkAndRefreshTokens());
   }, []);
 
   if (!ingredients) {
-    return <h1 className={styles.preloader}>Идёт Загрузка... =^.^=❤meow❤=^.^= ...</h1>;
+    return (
+      <LoadingIndicator />
+    );
   }
 
   return (

@@ -1,6 +1,8 @@
 function checkResponse(res) {
   if (!res.ok) {
-    throw new Error('Ошибка!');
+    return res.json().then(json => {
+      throw new Error(json.message);
+    });
   }
   return res.json();
 }

@@ -1,9 +1,9 @@
-import { BASE_URL, SET_INGREDIENTS, INCREMENT_AMOUNT, DECREMENT_AMOUNT } from '../../utils/const';
+import { API_URL, SET_INGREDIENTS, INCREMENT_AMOUNT, DECREMENT_AMOUNT } from '../../utils/const';
 import { checkResponse } from '../../utils/functions';
 
 function getIngredients() {
   return (dispatch) => {
-    fetch(`${BASE_URL}/ingredients`)
+    fetch(`${API_URL}/ingredients`)
       .then(checkResponse)
       .then(ingredients => {
         const ingredientsWithAmount = ingredients.data.map(item => ({ ...item, amount: 0 }));

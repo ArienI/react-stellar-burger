@@ -1,10 +1,19 @@
-import { ingredientPropType } from '../../../utils/prop-types';
+import { useSelector } from 'react-redux';
+import { LoadingIndicator } from '../../../pages/LoadingIndicator';
 import styles from './IngredientDetails.module.css';
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 
-function IngredientDetails({ ingredient }) {
+function IngredientDetails() {
+  const ingredients = useSelector((store) => store.ingredients);
+  const { id } = useParams();
+  const ingredient = ingredients.find((item) => item._id === id);
+
   // Если ингредиент не выбран, ничего не рендерим
-  if (!ingredient) return null;
+  if (!ingredient) {
+    return (
+      <LoadingIndicator />
+    );
+  }
   // Теперь отображаем информацию только для выбранного ингредиента
   return (
     <div className={styles.ingredientInfo}>
@@ -14,28 +23,23 @@ function IngredientDetails({ ingredient }) {
       <div className={styles.description}>
         <div>
           <p className="text text_type_main-default text_color_inactive">Калории, ккал</p>
-          <p className="text text_type_main-default text_color_inactive">{ingredient.calories}</p>
+          <p className="text text_type_digits-default text_color_inactive">{ingredient.calories}</p>
         </div>
         <div>
           <p className="text text_type_main-default text_color_inactive">Белки, г</p>
-          <p className="text text_type_main-default text_color_inactive">{ingredient.proteins}</p>
+          <p className="text text_type_digits-default text_color_inactive">{ingredient.proteins}</p>
         </div>
         <div>
           <p className="text text_type_main-default text_color_inactive">Жиры, г</p>
-          <p className="text text_type_main-default text_color_inactive">{ingredient.fat}</p>
+          <p className="text text_type_digits-default text_color_inactive">{ingredient.fat}</p>
         </div>
         <div>
           <p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
-          <p className="text text_type_main-default text_color_inactive">{ingredient.carbohydrates}</p>
+          <p className="text text_type_digits-default text_color_inactive">{ingredient.carbohydrates}</p>
         </div>
       </div>
     </div>
   );
-};
-
-// Валидация пропсов
-IngredientDetails.propTypes = {
-  ingredient: ingredientPropType
 };
 
 export { IngredientDetails };

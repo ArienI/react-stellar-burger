@@ -1,17 +1,23 @@
 import styles from './AppHeader.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { MenuItem } from './MenuItem/MenuItem';
+import { MenuLink } from './MenuLink/MenuLink';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function AppHeader() {
+  const userEmail = useSelector((state) => state.authentication.user.email);
+
   return (
     <header className={`${styles.header} m-10`}>
       <div className={`${styles.content} mt-4 mb-4`}>
         <nav className={styles.navigation}>
-          <MenuItem icon={BurgerIcon} text="Конструктор" isActive={true} />
-          <MenuItem icon={ListIcon} text="Лента заказов" isActive={false} />
+          <MenuLink icon={BurgerIcon} text="Конструктор" to="/" />
+          <MenuLink icon={ListIcon} text="Лента заказов" to="/orders" />
         </nav>
-        <Logo />
-        <MenuItem icon={ProfileIcon} text="Личный кабинет" isActive={false} />
+        <Link to="/">
+          <Logo />
+        </Link>
+        <MenuLink icon={ProfileIcon} text={userEmail ? userEmail : "Личный кабинет"} to="/profile" />
       </div>
     </header>
   );
