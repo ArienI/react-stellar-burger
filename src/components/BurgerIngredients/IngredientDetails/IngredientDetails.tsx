@@ -3,10 +3,10 @@ import { LoadingIndicator } from '../../../pages/LoadingIndicator';
 import styles from './IngredientDetails.module.css';
 import { useParams } from 'react-router-dom';
 
-function IngredientDetails() {
-  const ingredients = useSelector((store) => store.ingredients);
+function IngredientDetails(): React.ReactElement {
+  const ingredients = useSelector((store: any) => store.ingredients);
   const { id } = useParams();
-  const ingredient = ingredients.find((item) => item._id === id);
+  const ingredient = ingredients.find((item: any) => item._id === id);
 
   // Если ингредиент не выбран, ничего не рендерим
   if (!ingredient) {

@@ -7,10 +7,11 @@ import { IngredientDetails } from './IngredientDetails/IngredientDetails';
 import { useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
+import { TIngredient } from '../../utils/types';
 
-function BurgerIngredients() {
+function BurgerIngredients(): React.ReactElement {
   const navigate = useNavigate();
-  const ingredients = useSelector((store) => store.ingredients);
+  const ingredients = useSelector((store: any) => store.ingredients);
   // Создаем состояние current с начальным значением 'buns'
   const [activeTab, setActiveTab] = useState('buns');
   const [showPopup, setShowPopup] = useState(false);
@@ -20,13 +21,13 @@ function BurgerIngredients() {
   const { ref: mainRef, inView: mainInView } = useInView({ threshold: 0.25 });
 
   // Фильтруем массив и выбираем булочки
-  const buns = ingredients.filter((item) => item.type === 'bun');
+  const buns = ingredients.filter((item: TIngredient) => item.type === 'bun');
   // Фильтруем массив и выбираем соусы
-  const sauces = ingredients.filter((item) => item.type === 'sauce');
+  const sauces = ingredients.filter((item: TIngredient) => item.type === 'sauce');
   // Фильтруем массив и выбираем начинки
-  const main = ingredients.filter((item) => item.type === 'main');
+  const main = ingredients.filter((item: TIngredient) => item.type === 'main');
 
-  function openPopup(ingredient) {
+  function openPopup(ingredient: TIngredient) {
     setShowPopup(true);
     navigate(
       `/ingredients/${ingredient._id}`,
@@ -56,23 +57,23 @@ function BurgerIngredients() {
     <section className={styles.burgerIngredients}>
       <h1 className="text text_type_main-large mb-5">Соберите бургер </h1>
       <div className={styles.burgerTabs}>
-        <Tab value="buns" active={activeTab === 'buns'}>
+        <Tab value="buns" active={activeTab === 'buns'} onClick={() => setActiveTab('buns')}>
           Булки
         </Tab>
-        <Tab value="sauces" active={activeTab === 'sauces'}>
+        <Tab value="sauces" active={activeTab === 'sauces'} onClick={() => setActiveTab('sauces')}>
           Соусы
         </Tab>
-        <Tab value="main" active={activeTab === 'main'}>
+        <Tab value="main" active={activeTab === 'main'} onClick={() => setActiveTab('main')}>
           Начинки
         </Tab>
       </div>
       <div className={styles.customScroll}>
         <h2 className="text text_type_main-medium pt-10 pb-6">Булки</h2>
-        <Ingredients openModal={openPopup} ingredientsList={buns} ref={bunsRef} />
+        <Ingredients openPopup={openPopup} ingredientsList={buns} ref={bunsRef} />
         <h2 className="text text_type_main-medium pt-10 pb-6">Соусы</h2>
-        <Ingredients openModal={openPopup} ingredientsList={sauces} ref={saucesRef} />
+        <Ingredients openPopup={openPopup} ingredientsList={sauces} ref={saucesRef} />
         <h2 className="text text_type_main-medium pt-10 pb-6" >Начинки</h2>
-        <Ingredients openModal={openPopup} ingredientsList={main} ref={mainRef} />
+        <Ingredients openPopup={openPopup} ingredientsList={main} ref={mainRef} />
       </div>
       {
         showPopup && (
@@ -81,7 +82,7 @@ function BurgerIngredients() {
           </Modal>
         )
       }
-    </section>
+    </section >
   );
 };
 

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from './services/store';
 import { HashRouter } from 'react-router-dom';
 
-const root = createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <StrictMode>

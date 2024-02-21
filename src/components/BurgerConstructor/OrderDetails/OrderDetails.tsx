@@ -3,8 +3,8 @@ import styles from './OrderDetails.module.css';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { LoadingIndicator } from '../../../pages/LoadingIndicator';
 
-function OrderDetails() {
-  const order = useSelector((store) => store.order);
+function OrderDetails(): React.ReactElement {
+  const order = useSelector((store: any) => store.order);
 
   if (Object.keys(order).length === 0) {
     return (

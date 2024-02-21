@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styles from './pages.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -6,34 +6,35 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import { logout, updateUser } from '../services/actions/authenticationActions';
 import { LoadingIndicator } from './LoadingIndicator';
 
-function Profile() {
+function Profile(): React.ReactElement {
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.authentication.user);
+  const userData = useSelector((state: any) => state.authentication.user);
   const [activateButtons, setActivateButtons] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
-  function onEmailChange(e) {
-    setEmail(e.target.value);
+  function onEmailChange(event: ChangeEvent<HTMLInputElement>) {
+    setEmail(event.target.value);
     setActivateButtons(true);
   };
 
-  function onNameChange(e) {
-    setName(e.target.value);
+  function onNameChange(event: ChangeEvent<HTMLInputElement>) {
+    setName(event.target.value);
     setActivateButtons(true);
   };
 
-  function onPasswordChange(e) {
-    setPassword(e.target.value);
+  function onPasswordChange(event: ChangeEvent<HTMLInputElement>) {
+    setPassword(event.target.value);
     setActivateButtons(true);
   };
 
   function onLogout() {
+    // @ts-ignore
     dispatch(logout());
   };
 
-  function onResetForm(event) {
+  function onResetForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setActivateButtons(false);
     if (userData) {
@@ -43,9 +44,10 @@ function Profile() {
     }
   }
 
-  function onSubmitForm(event) {
+  function onSubmitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setActivateButtons(false);
+    // @ts-ignore
     dispatch(updateUser({ name, email }));
   }
 
@@ -78,12 +80,12 @@ function Profile() {
           >
             История заказов
           </NavLink>
-          <NavLink
+          <div
             className={`${styles.profileLink} text text_type_main-medium text_color_inactive`}
             onClick={onLogout}
           >
             Выход
-          </NavLink>
+          </div>
           <p className={` ${styles.menuDescription} text text_type_main-default text_color_inactive mt-8`}>В этом разделе вы можете изменить свои персональные данные</p>
         </nav>
         <form className={`${styles.form}`} onSubmit={onSubmitForm} onReset={onResetForm}>

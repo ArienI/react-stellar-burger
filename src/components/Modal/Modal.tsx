@@ -2,17 +2,21 @@ import styles from '../Modal/Modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { createPortal } from 'react-dom';
 import { ModalOverlay } from './ModalOverlay/ModalOverlay';
-import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
-const modalDOM = document.getElementById('modal');
+const modalDOM = document.getElementById('modal') as HTMLElement;
+
+interface ModalProps {
+  children: React.ReactNode;
+  onClose: () => void;
+}
 
 // { onClose, children } - два пропса:
 // onClose - функция закрыть модальное окно
 // children - специальный пропс, включает в себя все элементы, которые внутри JSX тегов компонента Modal
-function Modal({ children, onClose }) {
+function Modal({ children, onClose }: ModalProps): React.ReactElement {
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onClose();
       }
@@ -40,11 +44,6 @@ function Modal({ children, onClose }) {
       </>
     ), modalDOM
   );
-};
-
-Modal.propTypes = {
-  children: PropTypes.node.isRequired,
-  onClose: PropTypes.func.isRequired
 };
 
 export { Modal };

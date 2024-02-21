@@ -8,13 +8,14 @@ import { LoadingIndicator } from '../../pages/LoadingIndicator';
 import { useEffect } from 'react';
 import { checkAndRefreshTokens } from '../../services/actions/authenticationActions';
 
-function Main() {
+function Main(): React.ReactElement {
   const dispatch = useDispatch();
-  const ingredients = useSelector((store) => store.ingredients);
+  const ingredients = useSelector((store: any) => store.ingredients);
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(checkAndRefreshTokens());
-  }, []);
+  }, [dispatch]);
 
   if (!ingredients) {
     return (

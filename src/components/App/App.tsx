@@ -13,7 +13,7 @@ import { IngredientDetails } from '../BurgerIngredients/IngredientDetails/Ingred
 import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredientsActions';
 
-function App() {
+function App(): React.ReactElement {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ function App() {
 
   // Этот эффект выполнится только один раз при монтировании компонента, то есть когда страницы была обновлена
   useEffect(() => {
+    // @ts-ignore
     dispatch(getIngredients());
     // Если "isPopupOpened" "true" и страница была обновлена (пользователь вручную ввёл маршрут "/ingredients/:id" или нажал F5, находясь на маршруте "/ingredients/:id")
     if (isPopupOpened) {

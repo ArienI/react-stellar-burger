@@ -10,16 +10,17 @@ import { decrementAmount, incrementAmount } from '../../services/actions/ingredi
 import { sendOrder } from '../../services/actions/orderActions';
 import { BurgerIngredient } from './BurgerIngredient/BurgerIngredient';
 import { Navigate } from 'react-router-dom';
+import { TIngredient } from '../../utils/types';
 
-function BurgerConstructor() {
+function BurgerConstructor(): React.ReactElement {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.authentication.isLoggedIn);
-  const burger = useSelector((store) => store.burger);
-  const anyBuns = burger.find(item => item.type === 'bun');
-  const anyIngredients = burger.some(item => item.type !== 'bun');
+  const isLoggedIn = useSelector((auth: any) => auth.authentication.isLoggedIn);
+  const burger = useSelector((burger: any) => burger.burger);
+  const anyBuns = burger.find((ingredient: any) => ingredient.type === 'bun');
+  const anyIngredients = burger.some((ingredient: any) => ingredient.type !== 'bun');
   const [redirectToLogin, setRedirectToLogin] = useState(false);
 
-  function calculatePrice(ingredients) {
+  function calculatePrice(ingredients: TIngredient[]) {
     const initialPrice = 0;
     return ingredients.reduce((acc, item) => {
       const ingredienPrice = item.type === 'bun' ? item.price * 2 : item.price;
@@ -33,7 +34,7 @@ function BurgerConstructor() {
   // showPopup- хранит текущее состояние, setShowPopup- функция позволяющая изменить это состояние. Начальное значение для showPopup-false
   const [isShowPopup, setIsShowPopup] = useState(false);
 
-  const handleDrop = (ingredient) => {
+  const handleDrop = (ingredient: TIngredient) => {
     if (ingredient.type === 'bun' && anyBuns) {
       dispatch(decrementAmount(anyBuns._id));
       dispatch(deleteIngredient(0));
@@ -53,6 +54,7 @@ function BurgerConstructor() {
       // поэтому перенаправляем пользователя, используя state
       setRedirectToLogin(true);
     } else {
+      // @ts-ignore
       dispatch(sendOrder(burger.map((item) => item._id)));
       setIsShowPopup(true)
     }
@@ -91,7 +93,7 @@ function BurgerConstructor() {
             <div className={`${styles.customScroll} mt-4 mb-4`}>
               {/* Displaying only the other ingredients */}
               {
-                burger.map((item, index) => {
+                burger.map((item: TIngredient, index: number) => {
                   if (item.type !== 'bun') {
                     return (
                       <BurgerIngredient

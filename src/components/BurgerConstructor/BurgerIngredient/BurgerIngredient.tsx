@@ -5,19 +5,23 @@ import { useDispatch } from "react-redux";
 import styles from './BurgerIngredient.module.css';
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import PropTypes from 'prop-types';
-import { ingredientPropType } from "../../../utils/prop-types";
+import { TIngredient } from "../../../utils/types";
 
-function BurgerIngredient({ index, item }) {
+interface BurgerIngredientProps {
+  index: number;
+  item: TIngredient;
+}
+
+function BurgerIngredient({ index, item }: BurgerIngredientProps): React.ReactElement {
   const dispatch = useDispatch();
-  const elementRef = useRef(null);
+  const elementRef = useRef<HTMLDivElement>(null);
 
   const [, dragRef] = useDrag({
     type: 'moveIngredient',
     item: { type: 'moveIngredient', index }
   });
 
-  function handleHover(movingIngredient) {
+  function handleHover(movingIngredient: TIngredient) {
     if (!elementRef.current) {
       return;
     }
@@ -52,10 +56,5 @@ function BurgerIngredient({ index, item }) {
     </div>
   );
 }
-
-BurgerIngredient.propTypes = {
-  index: PropTypes.number.isRequired,
-  item: ingredientPropType.isRequired
-};
 
 export { BurgerIngredient };
