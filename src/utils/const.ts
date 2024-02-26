@@ -11,6 +11,7 @@ export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 export const MOVE_INGREDIENT = 'MOVE_INGREDIENT';
 // order actions
 export const POST_ORDER = 'POST_ORDER';
+export const CLEAR_ORDER = 'CLEAR_ORDER';
 // authentication actions
 export const ACTION_TYPE_LOGIN = 'ACTION_TYPE_LOGIN';
 export const ACTION_TYPE_LOGOUT = 'ACTION_TYPE_LOGOUT';

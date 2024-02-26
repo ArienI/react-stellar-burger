@@ -6,7 +6,7 @@ import { Modal } from '../Modal/Modal';
 import { useDrop } from 'react-dnd';
 import { addIngredient, deleteIngredient } from '../../services/actions/burgerActions';
 import { decrementAmount, incrementAmount } from '../../services/actions/ingredientsActions';
-import { sendOrder } from '../../services/actions/orderActions';
+import { clearOrder, sendOrder } from '../../services/actions/orderActions';
 import { BurgerIngredient } from './BurgerIngredient/BurgerIngredient';
 import { Navigate } from 'react-router-dom';
 import { TIngredient } from '../../utils/types';
@@ -140,7 +140,12 @@ function BurgerConstructor(): React.ReactElement {
           {/* onClose={() => setShowPopup(false)}- проп, который представляет функцию, которая будет вызвана, когда нужно закрытьь модальное окно. Функция setShowPopup(false) изменит состояние showPopup на false, что приведёт к закрытию модального окна.  */}
           {
             isShowPopup && (
-              <Modal onClose={() => setIsShowPopup(false)}>
+              <Modal onClose={
+                () => {
+                  setIsShowPopup(false);
+                }
+              }
+              >
                 <OrderDetails />
               </Modal>
             )

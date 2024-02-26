@@ -1,4 +1,4 @@
-import { POST_ORDER } from '../../utils/const';
+import { CLEAR_ORDER, POST_ORDER } from '../../utils/const';
 import { TOrder, TOrderActions } from '../../utils/types';
 
 // Example:
@@ -16,6 +16,8 @@ function orderReducer(state: TOrder = order, action: TOrderActions): TOrder {
   switch (action.type) {
     case POST_ORDER:
       return action.order;
+    case CLEAR_ORDER:
+      return null;
     default:
       return state;
   }

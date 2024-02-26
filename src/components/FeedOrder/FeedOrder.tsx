@@ -12,10 +12,13 @@ function FeedOrder({ order }: FeedOrderProps): React.ReactElement {
   const ingredients = useAppSelector((store) => store.ingredients);
 
   // Считаем стоимость бургера
-  const totalPrice = useMemo(() => order.ingredients.reduce((acc, ingredientId) => {
-    const ingredient = ingredients.find((item) => item._id === ingredientId);
-    return acc + (ingredient ? ingredient.price : 0);
-  }, 0), [order.ingredients, ingredients]);
+  const totalPrice = useMemo(() => {
+    return order.ingredients.reduce((acc, ingredientId) => {
+      const ingredient = ingredients.find(item => item._id === ingredientId);
+      // Если ингредиет найден, проверяем булочка ли это, так как булочку надо считать 2 раза
+      return acc + (ingredient ? (ingredient.type === 'bun' ? ingredient.price * 2 : ingredient.price) : 0);
+    }, 0);
+  }, [order.ingredients, ingredients]);
 
   // Достаём первые 6 уникальных картинок
   const { ingredientImages, extraImagesCount } = useMemo(() => {
