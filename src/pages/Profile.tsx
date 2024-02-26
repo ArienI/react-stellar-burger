@@ -71,7 +71,7 @@ function Profile(): React.ReactElement {
             Профиль
           </NavLink>
           <NavLink
-            to='/history'
+            to='/profile/orders'
             className={({ isActive }) =>
               `${styles.profileLink} text text_type_main-medium ${isActive ? 'text_color_primary' : 'text_color_inactive'}`
             }

@@ -1,16 +1,18 @@
 import React, { useMemo } from 'react';
 import styles from './FeedOrder.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { TWebsocketOrder } from '../../utils/types';
-import { useAppSelector } from '../../utils/hooks';
+import { TWebsocketOrder } from '../../../utils/types';
+import { useAppSelector } from '../../../utils/hooks';
+import { translateStatus } from '../../../utils/functions';
 
 interface FeedOrderProps {
   order: TWebsocketOrder;
+  isProfile?: boolean
 }
 
-function FeedOrder({ order }: FeedOrderProps): React.ReactElement {
+function FeedOrder({ order, isProfile = false }: FeedOrderProps): React.ReactElement {
   const ingredients = useAppSelector((store) => store.ingredients);
-
+  const statusClass = order.status === 'done' ? styles.statusDone : '';
   // Считаем стоимость бургера
   const totalPrice = useMemo(() => {
     return order.ingredients.reduce((acc, ingredientId) => {
@@ -43,7 +45,10 @@ function FeedOrder({ order }: FeedOrderProps): React.ReactElement {
           <FormattedDate date={new Date(order.createdAt)} />
         </time>
       </div>
-      <h2 className="text text_type_main-medium">{order.name}</h2>
+      <div>
+        <h2 className="text text_type_main-medium">{order.name}</h2>
+        {isProfile ? <p className={`text text_type_main-default mt-2 ${statusClass}`}>{translateStatus(order.status)}</p> : ''}
+      </div>
       <div className={styles.componentsOrder}>
         <div className={styles.imageContainer}>
           {ingredientImages.map((image, index) => (

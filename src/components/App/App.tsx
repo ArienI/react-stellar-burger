@@ -13,6 +13,7 @@ import { IngredientDetails } from '../BurgerIngredients/IngredientDetails/Ingred
 import { getIngredients } from '../../services/actions/ingredientsActions';
 import { useAppDispatch } from '../../utils/hooks';
 import { Feed } from '../../pages/Feed/Feed';
+import { ProfileOrders } from '../../pages/ProfileOrders';
 
 function App(): React.ReactElement {
   const dispatch = useAppDispatch();
@@ -60,6 +61,14 @@ function App(): React.ReactElement {
             element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/orders"
+            element={
+              <ProtectedRoute>
+                <ProfileOrders />
               </ProtectedRoute>
             }
           />

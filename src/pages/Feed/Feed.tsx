@@ -4,8 +4,8 @@ import { closeWS, openWS } from '../../services/actions/websocketActions';
 import { WS_ORDERS } from '../../utils/const';
 import { useEffect } from 'react';
 import { LoadingIndicator } from '../LoadingIndicator';
-import FeedOrder from '../../components/FeedOrder/FeedOrder';
 import FeedOrderStatusBoard from '../../components/FeedOrderStatusBoard/FeedOrderStatusBoard';
+import FeedOrders from '../../components/FeedOrders/FeedOrders';
 
 function Feed(): React.ReactElement {
   const dispatch = useAppDispatch();
@@ -36,11 +36,7 @@ function Feed(): React.ReactElement {
     <section className={styles.orderFeed}>
       <h1 className="orderFeed_title text text_type_main-large mb-2">Лента заказов</h1>
       <div className={styles.order}>
-        <div className={`${styles.customScroll}`}>
-          {socketMessage.orders.map((item, index) => (
-            <FeedOrder key={index} order={item} />
-          ))}
-        </div>
+        <FeedOrders orders={socketMessage.orders} />
         <div className={styles.stats}>
           <div className={styles.ordersBoard}>
             <FeedOrderStatusBoard title="Готовы:" orders={readyOrders} />

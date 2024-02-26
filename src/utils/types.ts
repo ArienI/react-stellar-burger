@@ -3,6 +3,8 @@ import { ACTION_TYPE_LOGIN, ACTION_TYPE_LOGOUT, ACTION_TYPE_SET_IS_CHECKING_TOKE
 import type { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { Action, ActionCreator } from 'redux';
 
+export type StatusKey = 'done' | 'pending' | 'created';
+
 export type TIngredient = {
   _id: string;
   name: string;

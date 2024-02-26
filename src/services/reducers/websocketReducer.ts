@@ -1,4 +1,4 @@
-import { ACTION_TYPE_SET_WS_IS_CONNECTED, ACTION_TYPE_SET_WS_MESSAGE } from "../../utils/const";
+import { ACTION_TYPE_CLOSE_WS, ACTION_TYPE_SET_WS_IS_CONNECTED, ACTION_TYPE_SET_WS_MESSAGE } from "../../utils/const";
 import { TWebsocketActions, TWebsocketState } from "../../utils/types";
 
 // Изначальное состояние
@@ -18,6 +18,16 @@ function websocketReducer(state: TWebsocketState = websocket, action: TWebsocket
       return { ...state, isConnected: action.payload };
     case ACTION_TYPE_SET_WS_MESSAGE:
       return { ...state, message: action.payload };
+    case ACTION_TYPE_CLOSE_WS:
+      return {
+        isConnected: false,
+        message: {
+          success: false,
+          orders: [],
+          total: -1,
+          totalToday: -1
+        }
+      };
     default:
       return state;
   }

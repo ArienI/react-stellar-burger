@@ -10,23 +10,6 @@
   gap: 60px;
 }
 
-.customScroll {
-  overflow-y: scroll;
-  max-height: 75vh;
-}
-
-.customScroll::-webkit-scrollbar {
-  width: 8px;
-}
-
-.customScroll::-webkit-scrollbar-track {
-  background-color: var(--background-element);
-}
-
-.customScroll::-webkit-scrollbar-thumb {
-  background-color: var(--text-inactive-color);
-}
-
 .stats {
   display: flex;
   flex-direction: column;
