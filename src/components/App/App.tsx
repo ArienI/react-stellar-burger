@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { IngredientDetails } from '../BurgerIngredients/IngredientDetails/IngredientDetails';
 import { getIngredients } from '../../services/actions/ingredientsActions';
 import { useAppDispatch } from '../../utils/hooks';
+import { Feed } from '../../pages/Feed';
 
 function App(): React.ReactElement {
   const dispatch = useAppDispatch();
@@ -102,6 +103,12 @@ function App(): React.ReactElement {
                 <div className="mt-30">
                   <IngredientDetails />
                 </div>
+            }
+          />
+          <Route
+            path="/feed"
+            element={
+              <Feed />
             }
           />
         </Routes>

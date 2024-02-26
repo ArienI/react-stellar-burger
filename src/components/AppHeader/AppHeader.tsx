@@ -12,7 +12,7 @@ function AppHeader(): React.ReactElement {
       <div className={`${styles.content} mt-4 mb-4`}>
         <nav className={styles.navigation}>
           <MenuLink icon={BurgerIcon} text="Конструктор" to="/" />
-          <MenuLink icon={ListIcon} text="Лента заказов" to="/orders" />
+          <MenuLink icon={ListIcon} text="Лента заказов" to="/feed" />
         </nav>
         <Link to="/">
           <Logo />

@@ -1,5 +1,5 @@
 import { store } from "../services/store";
-import { ACTION_TYPE_LOGIN, ACTION_TYPE_LOGOUT, ACTION_TYPE_SET_IS_CHECKING_TOKENS, ACTION_TYPE_SET_PASSWORD_RESET, ACTION_TYPE_SET_PASSWORD_RESET_CODE_SENT, ACTION_TYPE_SET_USER_DATA, ACTION_TYPE_SET_USER_LOGGED_IN, ADD_INGREDIENT, DECREMENT_AMOUNT, DELETE_INGREDIENT, INCREMENT_AMOUNT, MOVE_INGREDIENT, POST_ORDER, SET_INGREDIENTS } from "./const";
+import { ACTION_TYPE_LOGIN, ACTION_TYPE_LOGOUT, ACTION_TYPE_SET_IS_CHECKING_TOKENS, ACTION_TYPE_SET_PASSWORD_RESET, ACTION_TYPE_SET_PASSWORD_RESET_CODE_SENT, ACTION_TYPE_SET_USER_DATA, ACTION_TYPE_SET_USER_LOGGED_IN, ACTION_TYPE_SET_WS_IS_CONNECTED, ACTION_TYPE_OPEN_WS, ADD_INGREDIENT, DECREMENT_AMOUNT, DELETE_INGREDIENT, INCREMENT_AMOUNT, MOVE_INGREDIENT, POST_ORDER, SET_INGREDIENTS, ACTION_TYPE_CLOSE_WS, ACTION_TYPE_SET_WS_MESSAGE, ACTION_TYPE_SEND_WS_MESSAGE } from "./const";
 import type { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { Action, ActionCreator } from 'redux';
 
@@ -162,12 +162,69 @@ export type TLoginData = {
   password: string;
 };
 
+export type TWebsocketOrder = {
+  _id: string;
+  ingredients: Array<string>;
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+}
+
+export type TWebsocketMessage = {
+  success: boolean;
+  orders: Array<TWebsocketOrder>;
+  total: number;
+  totalToday: number;
+}
+
+export type TWebsocketState = {
+  isConnected: boolean;
+  message: TWebsocketMessage;
+};
+
+export type TOpenWSAction = {
+  type: typeof ACTION_TYPE_OPEN_WS;
+  payload: string;
+}
+
+export type TCloseWSAction = {
+  type: typeof ACTION_TYPE_CLOSE_WS;
+}
+
+export type TSetWSIsConnected = {
+  type: typeof ACTION_TYPE_SET_WS_IS_CONNECTED;
+  payload: boolean;
+}
+
+export type TSetWSMessage = {
+  type: typeof ACTION_TYPE_SET_WS_MESSAGE;
+  payload: TWebsocketMessage;
+}
+
+export type TSendWSMessage = {
+  type: typeof ACTION_TYPE_SEND_WS_MESSAGE;
+  payload: any;
+}
+
+export type TWebsocketActions =
+  | TOpenWSAction
+  | TCloseWSAction
+  | TSetWSIsConnected
+  | TSetWSMessage
+  | TSendWSMessage;
+
 export type RootState = ReturnType<typeof store.getState>;
 
-export type TAllActions = TIngredientsActions | TBurgerActions | TOrderActions | TAuthenticationActions;
+export type TAllActions =
+  | TIngredientsActions
+  | TBurgerActions
+  | TOrderActions
+  | TAuthenticationActions
+  | TWebsocketActions;
 
 export type AppDispatch = ThunkDispatch<RootState, unknown, TAllActions>;
-
 export type AppThunk<TReturn = void> = ActionCreator<
   ThunkAction<
     TReturn,
