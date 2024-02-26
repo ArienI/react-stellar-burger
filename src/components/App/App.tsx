@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { IngredientDetails } from '../BurgerIngredients/IngredientDetails/IngredientDetails';
 import { getIngredients } from '../../services/actions/ingredientsActions';
 import { useAppDispatch } from '../../utils/hooks';
-import { Feed } from '../../pages/Feed';
+import { Feed } from '../../pages/Feed/Feed';
 
 function App(): React.ReactElement {
   const dispatch = useAppDispatch();
