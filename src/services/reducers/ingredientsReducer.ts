@@ -1,9 +1,11 @@
 import { SET_INGREDIENTS, INCREMENT_AMOUNT, DECREMENT_AMOUNT } from '../../utils/const';
-const ingredients = [];
+import { TIngredient, TIngredientsList, TIngredientsActions } from '../../utils/types';
 
-function ingredientsReducer(state = ingredients, action) {
+const ingredients: TIngredientsList = [];
 
-  function updateIngredientAmount(ingredient, change) {
+function ingredientsReducer(state: TIngredientsList = ingredients, action: TIngredientsActions): TIngredientsList {
+
+  function updateIngredientAmount(ingredient: TIngredient, change: number): TIngredient {
     if (ingredient.type === 'bun') {
       return { ...ingredient, amount: ingredient.amount + change * 2 };
     }

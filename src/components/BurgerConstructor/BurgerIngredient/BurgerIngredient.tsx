@@ -1,11 +1,11 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { decrementAmount } from "../../../services/actions/ingredientsActions";
 import { deleteIngredient, moveIngredient } from "../../../services/actions/burgerActions";
-import { useDispatch } from "react-redux";
 import styles from './BurgerIngredient.module.css';
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { TIngredient } from "../../../utils/types";
+import { useAppDispatch } from "../../../utils/hooks";
 
 interface BurgerIngredientProps {
   index: number;
@@ -13,7 +13,7 @@ interface BurgerIngredientProps {
 }
 
 function BurgerIngredient({ index, item }: BurgerIngredientProps): React.ReactElement {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const elementRef = useRef<HTMLDivElement>(null);
 
   const [, dragRef] = useDrag({

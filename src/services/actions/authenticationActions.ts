@@ -1,8 +1,9 @@
-import { API_URL, ACTION_TYPE_LOGIN, ACTION_TYPE_LOGOUT, ACCESS_TOKEN_EXPIRATION_TIME_IN_MIN, ACTION_TYPE_SET_USER_DATA, ACTION_TYPE_SET_USER_LOGGED_IN, ACTION_TYPE_SET_PASSWORD_RESET_CODE_SENT, ACTION_TYPE_SET_PASSWORD_RESET } from '../../utils/const';
+import { API_URL, ACTION_TYPE_LOGIN, ACTION_TYPE_LOGOUT, ACCESS_TOKEN_EXPIRATION_TIME_IN_MIN, ACTION_TYPE_SET_USER_DATA, ACTION_TYPE_SET_USER_LOGGED_IN, ACTION_TYPE_SET_PASSWORD_RESET_CODE_SENT, ACTION_TYPE_SET_PASSWORD_RESET, ACTION_TYPE_SET_IS_CHECKING_TOKENS } from '../../utils/const';
 import { checkResponse } from '../../utils/functions';
+import { AppDispatch, TLoginData, TLoginUserAction, TLogoutUserAction, TRegisterNewUserData, TRequestPasswordResetData, TResetPasswordData, TSetIsCheckingTokens, TSetPasswordResetAction, TSetPasswordResetCodeSentAction, TSetUserDataAction, TSetUserLoggedInAction, TUser, TUserData } from '../../utils/types';
 
-function login(data) {
-  return (dispatch) => {
+function login(data: TLoginData) {
+  return (dispatch: AppDispatch) => {
     fetch(`${API_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -15,7 +16,7 @@ function login(data) {
       .then(response => {
         localStorage.setItem('accessToken', response.accessToken);
         const currentTime = new Date().getTime();
-        localStorage.setItem('accessTokenCreationTime', currentTime);
+        localStorage.setItem('accessTokenCreationTime', currentTime.toString());
         localStorage.setItem('refreshToken', response.refreshToken);
         dispatch(loginUser(response));
       })
@@ -26,7 +27,7 @@ function login(data) {
 };
 
 function logout() {
-  return (dispatch) => {
+  return (dispatch: AppDispatch) => {
     fetch(`${API_URL}/auth/logout`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -36,10 +37,8 @@ function logout() {
     })
       .then(checkResponse)
       .then(response => {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('accessTokenCreationTime');
-        localStorage.removeItem('refreshToken');
-        dispatch(logoutUser(response));
+        localStorage.clear();
+        dispatch(logoutUser());
       })
       .catch(error => {
         console.error(error);
@@ -48,9 +47,9 @@ function logout() {
 };
 
 function checkAndRefreshTokens() {
-  return (dispatch) => {
+  return (dispatch: AppDispatch) => {
     const accessToken = localStorage.getItem('accessToken');
-    const accessTokenCreationTime = localStorage.getItem('accessTokenCreationTime');
+    const accessTokenCreationTime = parseInt(localStorage.getItem('accessTokenCreationTime') || '0');
     const refreshToken = localStorage.getItem('refreshToken');
     const currentTime = new Date().getTime();
 
@@ -58,7 +57,7 @@ function checkAndRefreshTokens() {
       dispatch(logoutUser());
       return Promise.resolve();
     }
-
+    dispatch(setIsCheckingTokens(true));
     // minutes * 60 * 1000 = milliseconds
     if (!accessToken || !accessTokenCreationTime || currentTime - accessTokenCreationTime > ACCESS_TOKEN_EXPIRATION_TIME_IN_MIN * 60 * 1000) {
       return fetch(`${API_URL}/auth/token`, {
@@ -69,7 +68,7 @@ function checkAndRefreshTokens() {
         .then(checkResponse)
         .then(response => {
           localStorage.setItem('accessToken', response.accessToken);
-          localStorage.setItem('accessTokenCreationTime', currentTime);
+          localStorage.setItem('accessTokenCreationTime', currentTime.toString());
           localStorage.setItem('refreshToken', response.refreshToken);
         })
         .then(() => {
@@ -79,22 +78,26 @@ function checkAndRefreshTokens() {
         .catch(error => {
           console.error(error);
           dispatch(logout());
+        })
+        .finally(() => {
+          dispatch(setIsCheckingTokens(false));
         });
     } else {
       dispatch(getUser());
       dispatch(setUserLoggedIn());
+      dispatch(setIsCheckingTokens(false));
       return Promise.resolve();
     }
   };
 };
 
 function getUser() {
-  return (dispatch) => {
+  return (dispatch: AppDispatch) => {
     fetch(`${API_URL}/auth/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'authorization': localStorage.getItem('accessToken')
+        'authorization': localStorage.getItem('accessToken') || ''
       }
     })
       .then(checkResponse)
@@ -107,13 +110,13 @@ function getUser() {
   };
 };
 
-function updateUser(data) {
-  return (dispatch) => {
+function updateUser(data: TUser) {
+  return (dispatch: AppDispatch) => {
     fetch(`${API_URL}/auth/user`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'authorization': localStorage.getItem('accessToken')
+        'authorization': localStorage.getItem('accessToken') || ''
       },
       body: JSON.stringify({
         name: data.name,
@@ -130,8 +133,8 @@ function updateUser(data) {
   };
 };
 
-function registerNewUser(data) {
-  return (dispatch) => {
+function registerNewUser(data: TRegisterNewUserData) {
+  return (dispatch: AppDispatch) => {
     fetch(`${API_URL}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -145,7 +148,7 @@ function registerNewUser(data) {
       .then(response => {
         localStorage.setItem('accessToken', response.accessToken);
         const currentTime = new Date().getTime();
-        localStorage.setItem('accessTokenCreationTime', currentTime);
+        localStorage.setItem('accessTokenCreationTime', currentTime.toString());
         localStorage.setItem('refreshToken', response.refreshToken);
         dispatch(loginUser(response));
       })
@@ -155,8 +158,8 @@ function registerNewUser(data) {
   };
 };
 
-function requestPasswordReset(data) {
-  return (dispatch) => {
+function requestPasswordReset(data: TRequestPasswordResetData) {
+  return (dispatch: AppDispatch) => {
     fetch(`${API_URL}/password-reset`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -174,8 +177,8 @@ function requestPasswordReset(data) {
   };
 };
 
-function resetPassword(data) {
-  return (dispatch) => {
+function resetPassword(data: TResetPasswordData) {
+  return (dispatch: AppDispatch) => {
     fetch(`${API_URL}/password-reset/reset`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -194,42 +197,49 @@ function resetPassword(data) {
   };
 };
 
-function loginUser(data) {
+function loginUser(data: TUserData): TLoginUserAction {
   return {
     type: ACTION_TYPE_LOGIN,
     payload: data
   };
 };
 
-function logoutUser() {
+function logoutUser(): TLogoutUserAction {
   return {
     type: ACTION_TYPE_LOGOUT
   };
 };
 
-function setUserData(data) {
+function setUserData(data: TUserData): TSetUserDataAction {
   return {
     type: ACTION_TYPE_SET_USER_DATA,
     payload: data
   };
 };
 
-function setUserLoggedIn() {
+function setUserLoggedIn(): TSetUserLoggedInAction {
   return {
     type: ACTION_TYPE_SET_USER_LOGGED_IN
   };
 };
 
-function setPasswordResetCodeSent(data) {
+function setPasswordResetCodeSent(data: boolean): TSetPasswordResetCodeSentAction {
   return {
     type: ACTION_TYPE_SET_PASSWORD_RESET_CODE_SENT,
     payload: data
   };
 };
 
-function setPasswordReset(data) {
+function setPasswordReset(data: boolean): TSetPasswordResetAction {
   return {
     type: ACTION_TYPE_SET_PASSWORD_RESET,
+    payload: data
+  };
+};
+
+function setIsCheckingTokens(data: boolean): TSetIsCheckingTokens {
+  return {
+    type: ACTION_TYPE_SET_IS_CHECKING_TOKENS,
     payload: data
   };
 };

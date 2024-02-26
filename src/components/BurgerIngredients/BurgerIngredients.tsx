@@ -4,14 +4,14 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Ingredients } from './Ingredients/Ingredients';
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from './IngredientDetails/IngredientDetails';
-import { useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import { useNavigate } from 'react-router-dom';
 import { TIngredient } from '../../utils/types';
+import { useAppSelector } from '../../utils/hooks';
 
 function BurgerIngredients(): React.ReactElement {
   const navigate = useNavigate();
-  const ingredients = useSelector((store: any) => store.ingredients);
+  const ingredients = useAppSelector((store) => store.ingredients);
   // Создаем состояние current с начальным значением 'buns'
   const [activeTab, setActiveTab] = useState('buns');
   const [showPopup, setShowPopup] = useState(false);

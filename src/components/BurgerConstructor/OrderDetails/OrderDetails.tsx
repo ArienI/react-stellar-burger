@@ -1,12 +1,12 @@
-import { useSelector } from 'react-redux';
 import styles from './OrderDetails.module.css';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { LoadingIndicator } from '../../../pages/LoadingIndicator';
+import { useAppSelector } from '../../../utils/hooks';
 
 function OrderDetails(): React.ReactElement {
-  const order = useSelector((store: any) => store.order);
+  const order = useAppSelector((store) => store.order);
 
-  if (Object.keys(order).length === 0) {
+  if (!order) {
     return (
       <LoadingIndicator />
     );

@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
-import { thunk } from 'redux-thunk';
+import thunk from 'redux-thunk';
 import { ingredientsReducer } from './reducers/ingredientsReducer';
 import { burgerReducer } from './reducers/burgerReducer';
 import { orderReducer } from './reducers/orderReducer';
@@ -18,4 +18,4 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-export { store };
+export { store, rootReducer };

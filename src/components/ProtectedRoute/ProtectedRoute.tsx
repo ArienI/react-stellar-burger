@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { checkAndRefreshTokens } from '../../services/actions/authenticationActions';
 import { LoadingIndicator } from '../../pages/LoadingIndicator';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 interface ProtectedRouteProps {
   children: JSX.Element;
@@ -11,18 +11,14 @@ interface ProtectedRouteProps {
 
 // children: page - используем деструктуризацию чтобы обращаться к пропу не как children, а как page
 function ProtectedRoute({ children: page, redirectToHomeIfLoggedIn = false }: ProtectedRouteProps): React.ReactElement {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const from = location.state?.from || '/';
-  const isLoggedIn = useSelector((state: any) => state.authentication.isLoggedIn);
-  const [isCheckingTokens, setIsCheckingTokens] = useState(true);
+  const isLoggedIn = useAppSelector((state) => state.authentication.isLoggedIn);
+  const isCheckingTokens = useAppSelector((state) => state.authentication.isCheckingTokens);
 
   useEffect(() => {
-    // @ts-ignore
     dispatch(checkAndRefreshTokens())
-      .then(() => {
-        setIsCheckingTokens(false);
-      })
   }, [dispatch]);
 
   if (isCheckingTokens) {

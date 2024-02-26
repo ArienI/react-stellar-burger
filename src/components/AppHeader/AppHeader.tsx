@@ -1,11 +1,11 @@
 import styles from './AppHeader.module.css';
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { MenuLink } from './MenuLink/MenuLink';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../utils/hooks';
 
 function AppHeader(): React.ReactElement {
-  const userEmail = useSelector((state: any) => state.authentication.user.email);
+  const userEmail = useAppSelector((state) => state.authentication.user.email);
 
   return (
     <header className={`${styles.header} m-10`}>

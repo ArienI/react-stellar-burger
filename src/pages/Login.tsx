@@ -2,11 +2,11 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './pages.module.css';
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { login, setPasswordReset, setPasswordResetCodeSent } from '../services/actions/authenticationActions';
+import { useAppDispatch } from '../utils/hooks';
 
 function Login(): React.ReactElement {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,7 +20,6 @@ function Login(): React.ReactElement {
 
   function onSubmitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // @ts-ignore
     dispatch(login({ email, password }));
   };
 

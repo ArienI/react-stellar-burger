@@ -1,18 +1,19 @@
 import { ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT } from '../../utils/const';
+import { TBurger, TBurgerActions, TIngredient } from '../../utils/types';
 
-const burger = [];
+const burger: TBurger = [];
 
-function burgerReducer(state = burger, action) {
+function burgerReducer(state: TBurger = burger, action: TBurgerActions): TBurger {
 
-  function updateIngredientList(ingredients, newIngredient) {
-    return newIngredient.type === 'bun' ? [newIngredient].concat(ingredients) : ingredients.concat(newIngredient);
+  function updateIngredientList(ingredients: TBurger, newIngredient: TIngredient): TBurger {
+    return newIngredient.type === 'bun' ? [newIngredient].concat(ingredients) : [...ingredients, newIngredient];
   };
 
-  function removeIngredientByIndex(ingredients, index) {
+  function removeIngredientByIndex(ingredients: TBurger, index: number): TBurger {
     return ingredients.filter((_, curIndex) => curIndex !== index);
   };
 
-  function moveIngredient(ingredients, startPosition, endPosition) {
+  function moveIngredient(ingredients: TBurger, startPosition: number, endPosition: number) {
     const updatedIngredients = [...ingredients];
     const [removedIngredient] = updatedIngredients.splice(startPosition, 1);
     updatedIngredients.splice(endPosition, 0, removedIngredient);

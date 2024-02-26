@@ -1,19 +1,18 @@
 import styles from './Main.module.css';
 import { BurgerConstructor } from '../BurgerConstructor/BurgerConstructor';
 import { BurgerIngredients } from '../BurgerIngredients/BurgerIngredients';
-import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { LoadingIndicator } from '../../pages/LoadingIndicator';
 import { useEffect } from 'react';
 import { checkAndRefreshTokens } from '../../services/actions/authenticationActions';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 function Main(): React.ReactElement {
-  const dispatch = useDispatch();
-  const ingredients = useSelector((store: any) => store.ingredients);
+  const dispatch = useAppDispatch();
+  const ingredients = useAppSelector((store) => store.ingredients);
 
   useEffect(() => {
-    // @ts-ignore
     dispatch(checkAndRefreshTokens());
   }, [dispatch]);
 

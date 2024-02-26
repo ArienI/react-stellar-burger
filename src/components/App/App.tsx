@@ -10,11 +10,11 @@ import { Profile } from '../../pages/Profile';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { useEffect } from 'react';
 import { IngredientDetails } from '../BurgerIngredients/IngredientDetails/IngredientDetails';
-import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredientsActions';
+import { useAppDispatch } from '../../utils/hooks';
 
 function App(): React.ReactElement {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -28,7 +28,6 @@ function App(): React.ReactElement {
 
   // Этот эффект выполнится только один раз при монтировании компонента, то есть когда страницы была обновлена
   useEffect(() => {
-    // @ts-ignore
     dispatch(getIngredients());
     // Если "isPopupOpened" "true" и страница была обновлена (пользователь вручную ввёл маршрут "/ingredients/:id" или нажал F5, находясь на маршруте "/ingredients/:id")
     if (isPopupOpened) {
