@@ -3,7 +3,7 @@ import styles from './FeedOrderDetails.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
 import { translateStatus } from '../../../utils/functions';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { LoadingIndicator } from '../../../pages/LoadingIndicator';
 import { openWS } from '../../../services/actions/websocketActions';
 import { WS_ORDERS } from '../../../utils/const';
@@ -13,14 +13,25 @@ function FeedOrderDetails(): React.ReactElement {
   const dispatch = useAppDispatch();
   const socketMessage = useAppSelector((store) => store.websocket.message);
   const ingredients = useAppSelector((store) => store.ingredients);
-
+  const location = useLocation();
   const { id } = useParams();
+  // Проверяем если мы находимся на странице "profile/orders/ID"
+  const isProfileOrdersPage = location.pathname.startsWith('/profile/orders/');
 
   useEffect(() => {
+    // Если WebSocket закрыт, то
     if (!socketMessage.success) {
-      dispatch(openWS(`${WS_ORDERS}/all`));
+      // если мы находимся на странице "profile/orders/ID" значит используем авторизацию
+      if (isProfileOrdersPage) {
+        const accessToken = localStorage.getItem('accessToken');
+        const pureAccessToken = accessToken ? accessToken.replace('Bearer ', '') : '';
+        dispatch(openWS(`${WS_ORDERS}?token=${pureAccessToken}`));
+      } else {
+        // иначе открываем WebSocket без авторизации
+        dispatch(openWS(`${WS_ORDERS}/all`));
+      }
     }
-  }, [dispatch]);
+  }, [dispatch, isProfileOrdersPage, socketMessage.success]);
 
   const order = socketMessage.orders.find((item: TWebsocketOrder) => item.number.toString() === id);
 

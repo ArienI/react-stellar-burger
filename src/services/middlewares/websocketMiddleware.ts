@@ -1,42 +1,36 @@
-import type { Middleware, MiddlewareAPI } from 'redux';
-import { AppDispatch, RootState, TWebsocketActions } from '../../utils/types';
-import { ACTION_TYPE_CLOSE_WS, ACTION_TYPE_OPEN_WS, ACTION_TYPE_SEND_WS_MESSAGE } from '../../utils/const';
-import { setWSError, setWSIsConnected, setWSMessage } from '../actions/websocketActions';
+import { Middleware, MiddlewareAPI } from 'redux';
+import { AppDispatch, RootState, TWSFeedActions, TWebsocketActions } from '../../utils/types';
 
-function websocketMiddleware(): Middleware {
+function websocketMiddleware(wsActions: TWSFeedActions): Middleware {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
-    // Функция настройки событий websocket
     const setupSocketEventListeners = (socket: WebSocket) => {
       socket.onopen = (event) => {
-        store.dispatch(setWSIsConnected(true));
+        store.dispatch({ type: wsActions.onOpen, payload: true });
       };
 
       socket.onclose = (event) => {
-        store.dispatch(setWSIsConnected(false));
+        store.dispatch({ type: wsActions.onClose, payload: false });
       };
 
       socket.onmessage = (event) => {
-        store.dispatch(setWSMessage(JSON.parse(event.data)));
+        store.dispatch({ type: wsActions.onMessage, payload: JSON.parse(event.data) });
       };
 
       socket.onerror = (event) => {
-        store.dispatch(setWSError(event));
+        store.dispatch({ type: wsActions.onError, payload: event });
       };
     };
 
     return (next) => (action: TWebsocketActions) => {
       switch (action.type) {
-        case ACTION_TYPE_OPEN_WS:
+        case wsActions.wsOpen:
           socket = new WebSocket(action.payload);
           setupSocketEventListeners(socket);
           break;
-        case ACTION_TYPE_CLOSE_WS:
+        case wsActions.wsClose:
           socket?.close();
-          break;
-        case ACTION_TYPE_SEND_WS_MESSAGE:
-          socket?.send(JSON.stringify(action.payload));
           break;
         default:
           break;

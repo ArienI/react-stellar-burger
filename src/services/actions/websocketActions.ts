@@ -1,5 +1,5 @@
-import { ACTION_TYPE_SET_WS_IS_CONNECTED, ACTION_TYPE_OPEN_WS, ACTION_TYPE_CLOSE_WS, ACTION_TYPE_SET_WS_MESSAGE, ACTION_TYPE_SEND_WS_MESSAGE, ACTION_TYPE_SET_WS_ERROR } from "../../utils/const";
-import { TCloseWSAction, TOpenWSAction, TSendWSMessage, TSetWSError, TSetWSIsConnected, TSetWSMessage, TWebsocketMessage } from "../../utils/types";
+import { ACTION_TYPE_SET_WS_IS_CONNECTED, ACTION_TYPE_OPEN_WS, ACTION_TYPE_CLOSE_WS, ACTION_TYPE_SET_WS_MESSAGE, ACTION_TYPE_SET_WS_ERROR } from "../../utils/const";
+import { TCloseWSAction, TOpenWSAction, TSetWSError, TSetWSIsConnected, TSetWSMessage, TWebsocketMessage } from "../../utils/types";
 
 function openWS(url: string): TOpenWSAction {
   return {
@@ -28,13 +28,6 @@ function setWSMessage(data: TWebsocketMessage): TSetWSMessage {
   };
 };
 
-function sendWSMessage(data: any): TSendWSMessage {
-  return {
-    type: ACTION_TYPE_SEND_WS_MESSAGE,
-    payload: data
-  };
-};
-
 function setWSError(data: Event): TSetWSError {
   return {
     type: ACTION_TYPE_SET_WS_ERROR,
@@ -42,4 +35,4 @@ function setWSError(data: Event): TSetWSError {
   };
 };
 
-export { openWS, closeWS, setWSIsConnected, setWSMessage, sendWSMessage, setWSError };
+export { openWS, closeWS, setWSIsConnected, setWSMessage, setWSError };
