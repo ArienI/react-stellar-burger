@@ -143,6 +143,7 @@ function BurgerConstructor(): React.ReactElement {
               <Modal onClose={
                 () => {
                   setIsShowPopup(false);
+                  dispatch(clearOrder());
                 }
               }
               >

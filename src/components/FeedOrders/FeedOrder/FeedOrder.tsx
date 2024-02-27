@@ -7,10 +7,11 @@ import { translateStatus } from '../../../utils/functions';
 
 interface FeedOrderProps {
   order: TWebsocketOrder;
-  isProfile?: boolean
+  isProfile?: boolean;
+  openPopup: (order: TWebsocketOrder) => void;
 }
 
-function FeedOrder({ order, isProfile = false }: FeedOrderProps): React.ReactElement {
+function FeedOrder({ order, isProfile = false, openPopup }: FeedOrderProps): React.ReactElement {
   const ingredients = useAppSelector((store) => store.ingredients);
   const statusClass = order.status === 'done' ? styles.statusDone : '';
   // Считаем стоимость бургера
@@ -38,7 +39,7 @@ function FeedOrder({ order, isProfile = false }: FeedOrderProps): React.ReactEle
   }, [order.ingredients, ingredients]);
 
   return (
-    <div className={`${styles.cardOrder} mr-2 mb-4`}>
+    <div className={`${styles.cardOrder} mr-2 mb-4`} onClick={() => openPopup(order)}>
       <div className={styles.orderID}>
         <p className="text text_type_digits-default">#{order.number.toString().padStart(6, '0')}</p>
         <time className="text text_type_main-default text_color_inactive">

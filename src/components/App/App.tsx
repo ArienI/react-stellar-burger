@@ -14,6 +14,7 @@ import { getIngredients } from '../../services/actions/ingredientsActions';
 import { useAppDispatch } from '../../utils/hooks';
 import { Feed } from '../../pages/Feed/Feed';
 import { ProfileOrders } from '../../pages/ProfileOrders';
+import FeedOrderDetails from '../FeedOrders/FeedOrderDetails/FeedOrderDetails';
 
 function App(): React.ReactElement {
   const dispatch = useAppDispatch();
@@ -118,6 +119,16 @@ function App(): React.ReactElement {
             path="/feed"
             element={
               <Feed />
+            }
+          />
+          <Route
+            path="/feed/:id"
+            element={
+              isPopupOpened ?
+                <Feed /> :
+                <div className="mt-30">
+                  <FeedOrderDetails />
+                </div>
             }
           />
         </Routes>

@@ -55,7 +55,7 @@ function ProfileOrders(): React.ReactElement {
           </div>
           <p className={` ${styles.menuDescription} text text_type_main-default text_color_inactive mt-8`}>В этом разделе вы можете изменить свои персональные данные</p>
         </nav>
-        <FeedOrders orders={socketMessage.orders} isProfile={true} />
+        {/* <FeedOrders orders={socketMessage.orders} isProfile={true} /> */}
       </div>
     </div >
   );

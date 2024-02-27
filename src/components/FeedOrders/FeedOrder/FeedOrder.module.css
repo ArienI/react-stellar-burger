@@ -42,16 +42,6 @@
   position: relative;
 }
 
-/* .imageOverlayContainer {
-  position: absolute;
-  bottom: 24px;
-  right: 24px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border-radius: 50%;
-  z-index: 1;
-} */
-
 .imageOverlayContainer {
   position: absolute;
   width: 64px;
