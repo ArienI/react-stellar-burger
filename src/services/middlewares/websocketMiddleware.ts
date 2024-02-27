@@ -1,6 +1,7 @@
 import type { Middleware, MiddlewareAPI } from 'redux';
 import { AppDispatch, RootState, TWebsocketActions } from '../../utils/types';
-import { ACTION_TYPE_SET_WS_IS_CONNECTED, ACTION_TYPE_CLOSE_WS, ACTION_TYPE_OPEN_WS, ACTION_TYPE_SET_WS_MESSAGE, ACTION_TYPE_SEND_WS_MESSAGE } from '../../utils/const';
+import { ACTION_TYPE_CLOSE_WS, ACTION_TYPE_OPEN_WS, ACTION_TYPE_SEND_WS_MESSAGE } from '../../utils/const';
+import { setWSError, setWSIsConnected, setWSMessage } from '../actions/websocketActions';
 
 function websocketMiddleware(): Middleware {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
@@ -9,15 +10,19 @@ function websocketMiddleware(): Middleware {
     // Функция настройки событий websocket
     const setupSocketEventListeners = (socket: WebSocket) => {
       socket.onopen = (event) => {
-        store.dispatch({ type: ACTION_TYPE_SET_WS_IS_CONNECTED, payload: true });
+        store.dispatch(setWSIsConnected(true));
       };
 
       socket.onclose = (event) => {
-        store.dispatch({ type: ACTION_TYPE_SET_WS_IS_CONNECTED, payload: false });
+        store.dispatch(setWSIsConnected(false));
       };
 
       socket.onmessage = (event) => {
-        store.dispatch({ type: ACTION_TYPE_SET_WS_MESSAGE, payload: JSON.parse(event.data) });
+        store.dispatch(setWSMessage(JSON.parse(event.data)));
+      };
+
+      socket.onerror = (event) => {
+        store.dispatch(setWSError(event));
       };
     };
 

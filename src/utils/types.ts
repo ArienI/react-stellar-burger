@@ -1,5 +1,5 @@
 import { store } from "../services/store";
-import { ACTION_TYPE_LOGIN, ACTION_TYPE_LOGOUT, ACTION_TYPE_SET_IS_CHECKING_TOKENS, ACTION_TYPE_SET_PASSWORD_RESET, ACTION_TYPE_SET_PASSWORD_RESET_CODE_SENT, ACTION_TYPE_SET_USER_DATA, ACTION_TYPE_SET_USER_LOGGED_IN, ACTION_TYPE_SET_WS_IS_CONNECTED, ACTION_TYPE_OPEN_WS, ADD_INGREDIENT, DECREMENT_AMOUNT, DELETE_INGREDIENT, INCREMENT_AMOUNT, MOVE_INGREDIENT, POST_ORDER, SET_INGREDIENTS, ACTION_TYPE_CLOSE_WS, ACTION_TYPE_SET_WS_MESSAGE, ACTION_TYPE_SEND_WS_MESSAGE, CLEAR_ORDER } from "./const";
+import { ACTION_TYPE_LOGIN, ACTION_TYPE_LOGOUT, ACTION_TYPE_SET_IS_CHECKING_TOKENS, ACTION_TYPE_SET_PASSWORD_RESET, ACTION_TYPE_SET_PASSWORD_RESET_CODE_SENT, ACTION_TYPE_SET_USER_DATA, ACTION_TYPE_SET_USER_LOGGED_IN, ACTION_TYPE_SET_WS_IS_CONNECTED, ACTION_TYPE_OPEN_WS, ADD_INGREDIENT, DECREMENT_AMOUNT, DELETE_INGREDIENT, INCREMENT_AMOUNT, MOVE_INGREDIENT, POST_ORDER, SET_INGREDIENTS, ACTION_TYPE_CLOSE_WS, ACTION_TYPE_SET_WS_MESSAGE, ACTION_TYPE_SEND_WS_MESSAGE, CLEAR_ORDER, ACTION_TYPE_SET_WS_ERROR } from "./const";
 import type { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { Action, ActionCreator } from 'redux';
 
@@ -192,6 +192,7 @@ export type TWebsocketMessage = {
 export type TWebsocketState = {
   isConnected: boolean;
   message: TWebsocketMessage;
+  error: Event | null;
 };
 
 export type TOpenWSAction = {
@@ -218,12 +219,18 @@ export type TSendWSMessage = {
   payload: any;
 }
 
+export type TSetWSError = {
+  type: typeof ACTION_TYPE_SET_WS_ERROR;
+  payload: Event;
+}
+
 export type TWebsocketActions =
   | TOpenWSAction
   | TCloseWSAction
   | TSetWSIsConnected
   | TSetWSMessage
-  | TSendWSMessage;
+  | TSendWSMessage
+  | TSetWSError;
 
 export type RootState = ReturnType<typeof store.getState>;
 

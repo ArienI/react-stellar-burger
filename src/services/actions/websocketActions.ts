@@ -1,5 +1,5 @@
-import { ACTION_TYPE_SET_WS_IS_CONNECTED, ACTION_TYPE_OPEN_WS, ACTION_TYPE_CLOSE_WS, ACTION_TYPE_SET_WS_MESSAGE, ACTION_TYPE_SEND_WS_MESSAGE } from "../../utils/const";
-import { TCloseWSAction, TOpenWSAction, TSendWSMessage, TSetWSIsConnected, TSetWSMessage, TWebsocketMessage } from "../../utils/types";
+import { ACTION_TYPE_SET_WS_IS_CONNECTED, ACTION_TYPE_OPEN_WS, ACTION_TYPE_CLOSE_WS, ACTION_TYPE_SET_WS_MESSAGE, ACTION_TYPE_SEND_WS_MESSAGE, ACTION_TYPE_SET_WS_ERROR } from "../../utils/const";
+import { TCloseWSAction, TOpenWSAction, TSendWSMessage, TSetWSError, TSetWSIsConnected, TSetWSMessage, TWebsocketMessage } from "../../utils/types";
 
 function openWS(url: string): TOpenWSAction {
   return {
@@ -35,4 +35,11 @@ function sendWSMessage(data: any): TSendWSMessage {
   };
 };
 
-export { openWS, closeWS, setWSIsConnected, setWSMessage, sendWSMessage };
+function setWSError(data: Event): TSetWSError {
+  return {
+    type: ACTION_TYPE_SET_WS_ERROR,
+    payload: data
+  };
+};
+
+export { openWS, closeWS, setWSIsConnected, setWSMessage, sendWSMessage, setWSError };
