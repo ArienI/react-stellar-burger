@@ -1,10 +1,9 @@
 import { API_URL, SET_INGREDIENTS, INCREMENT_AMOUNT, DECREMENT_AMOUNT } from '../../utils/const';
 import { checkResponse } from '../../utils/functions';
-import { Dispatch } from 'redux';
-import { TDecrementAmountAction, TIncrementAmountAction, TIngredient, TIngredientsList, TSetIngredientsAction } from '../../utils/types';
+import { AppDispatch, TDecrementAmountAction, TIncrementAmountAction, TIngredient, TIngredientsList, TSetIngredientsAction } from '../../utils/types';
 
 function getIngredients() {
-  return (dispatch: Dispatch): void => {
+  return (dispatch: AppDispatch): void => {
     fetch(`${API_URL}/ingredients`)
       .then(checkResponse)
       .then(ingredients => {
