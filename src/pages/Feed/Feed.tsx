@@ -58,7 +58,7 @@ function Feed(): React.ReactElement {
     <section className={styles.orderFeed}>
       <h1 className="orderFeed_title text text_type_main-large mb-2">Лента заказов</h1>
       <div className={styles.order}>
-        <FeedOrders openPopup={openPopup} orders={socketMessage.orders} />
+        <FeedOrders orders={socketMessage.orders} openPopup={openPopup} />
         <div className={styles.stats}>
           <div className={styles.ordersBoard}>
             <FeedOrderStatusBoard title="Готовы:" orders={readyOrders} />

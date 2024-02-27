@@ -74,6 +74,20 @@ function App(): React.ReactElement {
             }
           />
           <Route
+            path="/profile/orders/:id"
+            element={
+              <ProtectedRoute>
+                {
+                  isPopupOpened ?
+                    <ProfileOrders /> :
+                    <div className="mt-30">
+                      <FeedOrderDetails />
+                    </div>
+                }
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/login"
             element={
               <ProtectedRoute redirectToHomeIfLoggedIn>

@@ -1,16 +1,38 @@
 import styles from './pages.module.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { logout } from '../services/actions/authenticationActions';
 import { LoadingIndicator } from './LoadingIndicator';
 import { useAppDispatch, useAppSelector } from '../utils/hooks';
 import { WS_ORDERS } from '../utils/const';
 import { closeWS, openWS } from '../services/actions/websocketActions';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import FeedOrders from '../components/FeedOrders/FeedOrders';
+import { TWebsocketOrder } from '../utils/types';
+import { Modal } from '../components/Modal/Modal';
+import FeedOrderDetails from '../components/FeedOrders/FeedOrderDetails/FeedOrderDetails';
 
 function ProfileOrders(): React.ReactElement {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const socketMessage = useAppSelector((state) => state.websocket.message);
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  function openPopup(order: TWebsocketOrder) {
+    setShowPopup(true);
+    navigate(
+      `/profile/orders/${order.number}`,
+      {
+        state: { ingredientPopupOpened: true }
+      }
+    );
+  };
+
+  function closePopup() {
+    setShowPopup(false);
+    // Возвращаемся на предыдущий маршрут
+    navigate(-1);
+  };
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -55,8 +77,15 @@ function ProfileOrders(): React.ReactElement {
           </div>
           <p className={` ${styles.menuDescription} text text_type_main-default text_color_inactive mt-8`}>В этом разделе вы можете изменить свои персональные данные</p>
         </nav>
-        {/* <FeedOrders orders={socketMessage.orders} isProfile={true} /> */}
+        <FeedOrders orders={socketMessage.orders} isProfile={true} openPopup={openPopup} />
       </div>
+      {
+        showPopup && (
+          <Modal onClose={closePopup}>
+            <FeedOrderDetails />
+          </Modal>
+        )
+      }
     </div >
   );
 };
