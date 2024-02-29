@@ -3,10 +3,10 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { registerNewUser } from '../services/actions/authenticationActions';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../utils/hooks';
 
 function Registration(): React.ReactElement {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +25,6 @@ function Registration(): React.ReactElement {
 
   function onSubmitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // @ts-ignore
     dispatch(registerNewUser({ name, email, password }));
   };
 

@@ -1,16 +1,16 @@
 import styles from './pages.module.css';
 import { Button, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { resetPassword } from '../services/actions/authenticationActions';
+import { useAppDispatch, useAppSelector } from '../utils/hooks';
 
 function ResetPassword(): React.ReactElement {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   // проверяем что пользователь пришёл со страницы 'forgot-password'
   const validPreviousPage = location.state?.previousPage === 'forgot-password';
-  const passwordReset = useSelector((state: any) => state.authentication.passwordReset);
+  const passwordReset = useAppSelector((state) => state.authentication.passwordReset);
   const [token, setToken] = useState('');
   const [password, setPassword] = useState('');
 
@@ -24,7 +24,6 @@ function ResetPassword(): React.ReactElement {
 
   function onSubmitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // @ts-ignore
     dispatch(resetPassword({ password, token }));
   };
 

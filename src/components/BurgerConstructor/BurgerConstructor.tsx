@@ -3,21 +3,21 @@ import styles from './BurgerConstructor.module.css';
 import { ConstructorElement, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { OrderDetails } from './OrderDetails/OrderDetails';
 import { Modal } from '../Modal/Modal';
-import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { addIngredient, deleteIngredient } from '../../services/actions/burgerActions';
 import { decrementAmount, incrementAmount } from '../../services/actions/ingredientsActions';
-import { sendOrder } from '../../services/actions/orderActions';
+import { clearOrder, sendOrder } from '../../services/actions/orderActions';
 import { BurgerIngredient } from './BurgerIngredient/BurgerIngredient';
 import { Navigate } from 'react-router-dom';
 import { TIngredient } from '../../utils/types';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 function BurgerConstructor(): React.ReactElement {
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector((auth: any) => auth.authentication.isLoggedIn);
-  const burger = useSelector((burger: any) => burger.burger);
-  const anyBuns = burger.find((ingredient: any) => ingredient.type === 'bun');
-  const anyIngredients = burger.some((ingredient: any) => ingredient.type !== 'bun');
+  const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector((auth) => auth.authentication.isLoggedIn);
+  const burger = useAppSelector((burger) => burger.burger);
+  const anyBuns = burger.find((ingredient) => ingredient.type === 'bun');
+  const anyIngredients = burger.some((ingredient) => ingredient.type !== 'bun');
   const [redirectToLogin, setRedirectToLogin] = useState(false);
 
   function calculatePrice(ingredients: TIngredient[]) {
@@ -54,8 +54,7 @@ function BurgerConstructor(): React.ReactElement {
       // поэтому перенаправляем пользователя, используя state
       setRedirectToLogin(true);
     } else {
-      // @ts-ignore
-      dispatch(sendOrder(burger.map((item) => item._id)));
+      dispatch(sendOrder(burger.map((item: TIngredient) => item._id)));
       setIsShowPopup(true)
     }
   }
@@ -141,7 +140,13 @@ function BurgerConstructor(): React.ReactElement {
           {/* onClose={() => setShowPopup(false)}- проп, который представляет функцию, которая будет вызвана, когда нужно закрытьь модальное окно. Функция setShowPopup(false) изменит состояние showPopup на false, что приведёт к закрытию модального окна.  */}
           {
             isShowPopup && (
-              <Modal onClose={() => setIsShowPopup(false)}>
+              <Modal onClose={
+                () => {
+                  setIsShowPopup(false);
+                  dispatch(clearOrder());
+                }
+              }
+              >
                 <OrderDetails />
               </Modal>
             )

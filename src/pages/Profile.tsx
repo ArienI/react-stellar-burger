@@ -1,14 +1,14 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styles from './pages.module.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { logout, updateUser } from '../services/actions/authenticationActions';
 import { LoadingIndicator } from './LoadingIndicator';
+import { useAppDispatch, useAppSelector } from '../utils/hooks';
 
 function Profile(): React.ReactElement {
-  const dispatch = useDispatch();
-  const userData = useSelector((state: any) => state.authentication.user);
+  const dispatch = useAppDispatch();
+  const userData = useAppSelector((state) => state.authentication.user);
   const [activateButtons, setActivateButtons] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -30,7 +30,6 @@ function Profile(): React.ReactElement {
   };
 
   function onLogout() {
-    // @ts-ignore
     dispatch(logout());
   };
 
@@ -38,8 +37,8 @@ function Profile(): React.ReactElement {
     event.preventDefault();
     setActivateButtons(false);
     if (userData) {
-      setName(userData.name);
-      setEmail(userData.email);
+      setName(userData.name || '');
+      setEmail(userData.email || '');
       setPassword('');
     }
   }
@@ -47,7 +46,6 @@ function Profile(): React.ReactElement {
   function onSubmitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setActivateButtons(false);
-    // @ts-ignore
     dispatch(updateUser({ name, email }));
   }
 
@@ -56,7 +54,7 @@ function Profile(): React.ReactElement {
     setName(userData.name || '');
   }, [userData]);
 
-  if (!userData || userData.email === null || userData.password === null) {
+  if (!userData || userData.email === null || userData.name === null) {
     return (<LoadingIndicator />);
   }
 
@@ -73,7 +71,7 @@ function Profile(): React.ReactElement {
             Профиль
           </NavLink>
           <NavLink
-            to='/history'
+            to='/profile/orders'
             className={({ isActive }) =>
               `${styles.profileLink} text text_type_main-medium ${isActive ? 'text_color_primary' : 'text_color_inactive'}`
             }

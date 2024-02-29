@@ -1,0 +1,30 @@
+.orderFeed {
+  max-width: 1248px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.order {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.ordersBoard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+
+.textShadow {
+  text-shadow:
+    0 4px 32px rgba(51, 51, 255, .5),
+    0 0 8px rgba(51, 51, 255, .25),
+    0 0 16px rgba(51, 51, 255, .25);
+}

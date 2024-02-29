@@ -10,11 +10,14 @@ import { Profile } from '../../pages/Profile';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { useEffect } from 'react';
 import { IngredientDetails } from '../BurgerIngredients/IngredientDetails/IngredientDetails';
-import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredientsActions';
+import { useAppDispatch } from '../../utils/hooks';
+import { Feed } from '../../pages/Feed/Feed';
+import { ProfileOrders } from '../../pages/ProfileOrders';
+import FeedOrderDetails from '../FeedOrders/FeedOrderDetails/FeedOrderDetails';
 
 function App(): React.ReactElement {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -28,7 +31,6 @@ function App(): React.ReactElement {
 
   // Этот эффект выполнится только один раз при монтировании компонента, то есть когда страницы была обновлена
   useEffect(() => {
-    // @ts-ignore
     dispatch(getIngredients());
     // Если "isPopupOpened" "true" и страница была обновлена (пользователь вручную ввёл маршрут "/ingredients/:id" или нажал F5, находясь на маршруте "/ingredients/:id")
     if (isPopupOpened) {
@@ -60,6 +62,28 @@ function App(): React.ReactElement {
             element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/orders"
+            element={
+              <ProtectedRoute>
+                <ProfileOrders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <ProtectedRoute>
+                {
+                  isPopupOpened ?
+                    <ProfileOrders /> :
+                    <div className="mt-30">
+                      <FeedOrderDetails />
+                    </div>
+                }
               </ProtectedRoute>
             }
           />
@@ -102,6 +126,22 @@ function App(): React.ReactElement {
                 <Main /> :
                 <div className="mt-30">
                   <IngredientDetails />
+                </div>
+            }
+          />
+          <Route
+            path="/feed"
+            element={
+              <Feed />
+            }
+          />
+          <Route
+            path="/feed/:id"
+            element={
+              isPopupOpened ?
+                <Feed /> :
+                <div className="mt-30">
+                  <FeedOrderDetails />
                 </div>
             }
           />
