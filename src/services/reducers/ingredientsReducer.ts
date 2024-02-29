@@ -32,4 +32,4 @@ function ingredientsReducer(state: TIngredientsList = ingredients, action: TIngr
   }
 };
 
-export { ingredientsReducer };
+export { ingredientsReducer, ingredients };

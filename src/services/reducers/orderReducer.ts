@@ -23,4 +23,4 @@ function orderReducer(state: TOrder = order, action: TOrderActions): TOrder {
   }
 };
 
-export { orderReducer };
+export { order, orderReducer };

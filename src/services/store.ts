@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import thunk from 'redux-thunk';
 import { ingredientsReducer } from './reducers/ingredientsReducer';
@@ -27,9 +27,12 @@ const feedWSActions: TWSFeedActions = {
   onMessage: ACTION_TYPE_SET_WS_MESSAGE
 };
 
+// Применять composeWithDevTools только в development режиме. Не применять на production (готовом приложении)
+const composeEnhancers: any = process.env.NODE_ENV === 'development' ? composeWithDevTools : compose;
+
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk, websocketMiddleware(feedWSActions)))
+  composeEnhancers(applyMiddleware(thunk, websocketMiddleware(feedWSActions)))
 );
 
 export { store, rootReducer };

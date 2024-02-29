@@ -33,4 +33,4 @@ function authenticationReducer(state: TAuthenticationState = authenticationDetai
   }
 };
 
-export { authenticationReducer };
+export { authenticationReducer, authenticationDetails };
