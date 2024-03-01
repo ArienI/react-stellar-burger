@@ -8,7 +8,7 @@ import {
   ACTION_TYPE_SET_USER_DATA,
   ACTION_TYPE_SET_USER_LOGGED_IN
 } from "../../utils/const";
-import { newUser, user } from "src/utils/test-mocks";
+import { newUser, user } from "../../utils/test-mocks";
 
 describe('Тестирование authenticationReducer', () => {
   const initialState = authenticationDetails;

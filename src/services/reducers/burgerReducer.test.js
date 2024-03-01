@@ -1,6 +1,6 @@
 import { burgerReducer, burger } from "./burgerReducer";
 import { ADD_INGREDIENT, DELETE_INGREDIENT, MOVE_INGREDIENT } from '../../utils/const';
-import { bun, main, main2, mockBurger, sauce, sauce2 } from "src/utils/test-mocks";
+import { bun, main, main2, mockBurger, sauce, sauce2 } from "../../utils/test-mocks";
 
 describe('Тесты burgerReducer', () => {
   const initialState = burger;

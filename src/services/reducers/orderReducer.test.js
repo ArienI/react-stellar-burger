@@ -1,6 +1,6 @@
 import { order, orderReducer } from './orderReducer';
 import { CLEAR_ORDER, POST_ORDER } from '../../utils/const';
-import { mockOrder } from 'src/utils/test-mocks';
+import { mockOrder } from '../../utils/test-mocks';
 
 describe('Тестирование orderReducer', () => {
   const initialState = order;

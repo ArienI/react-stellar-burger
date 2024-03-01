@@ -35,16 +35,19 @@ function Login(): React.ReactElement {
           onChange={onEmailChange}
           value={email}
           name={'email'}
+          data-testid="email"
         />
         <PasswordInput
           onChange={onPasswordChange}
           value={password}
           name={'password'}
+          data-testid="password"
         />
         <Button
           htmlType="submit"
           type="primary"
           size="medium"
+          data-testid="loginButton"
         >
           Войти
         </Button>

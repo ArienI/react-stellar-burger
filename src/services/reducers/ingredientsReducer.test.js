@@ -1,6 +1,6 @@
 import { ingredientsReducer, ingredients } from './ingredientsReducer';
 import { SET_INGREDIENTS, INCREMENT_AMOUNT, DECREMENT_AMOUNT } from '../../utils/const';
-import { bun, main, mockBurger } from 'src/utils/test-mocks';
+import { bun, main, mockBurger } from '../../utils/test-mocks';
 
 describe('Тесты ingredientsReducer', () => {
   const initialState = ingredients;

@@ -32,11 +32,20 @@ function Modal({ children, onClose }: ModalProps): React.ReactElement {
   return createPortal(
     (
       <>
-        <ModalOverlay onClose={onClose} />
-        <div className={styles.modal}>
+        <ModalOverlay
+          onClose={onClose}
+        />
+        <div
+          className={styles.modal}
+          data-testid="modal"
+        >
           <div className={styles.content}>
             {children}
-            <button className={styles.closeButton} onClick={onClose}>
+            <button
+              className={styles.closeButton}
+              onClick={onClose}
+              data-testid="modalCloseButton"
+            >
               <CloseIcon type="primary" />
             </button>
           </div>

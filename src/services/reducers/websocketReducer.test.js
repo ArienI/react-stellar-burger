@@ -5,7 +5,7 @@ import {
   ACTION_TYPE_SET_WS_IS_CONNECTED,
   ACTION_TYPE_SET_WS_MESSAGE
 } from "../../utils/const";
-import { websocketMessageMock } from 'src/utils/test-mocks';
+import { websocketMessageMock } from '../../utils/test-mocks';
 
 const initialState = websocket;
 

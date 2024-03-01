@@ -6,7 +6,11 @@ interface ModalOverlayProps {
 
 function ModalOverlay({ onClose }: ModalOverlayProps): React.ReactElement {
   return (
-    <div className={styles.modalOverlay} onClick={() => onClose()}></div>
+    <div
+      className={styles.modalOverlay}
+      onClick={() => onClose()}
+      data-testid="modalOverlay"
+    ></div>
   );
 }
 

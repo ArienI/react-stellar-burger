@@ -68,7 +68,11 @@ function BurgerConstructor(): React.ReactElement {
   }
 
   return (
-    <section className={styles.burgerConstructor} ref={dropRef}>
+    <section
+      className={styles.burgerConstructor}
+      ref={dropRef}
+      data-testid="burger"
+    >
       <div className={styles.burgerComponents}>
         {
           burger.length === 0 && (
@@ -134,6 +138,7 @@ function BurgerConstructor(): React.ReactElement {
             size="large"
             htmlType="button"
             disabled={!anyBuns || !anyIngredients}
+            data-testid="orderButton"
           >
             Оформить заказ
           </Button>
