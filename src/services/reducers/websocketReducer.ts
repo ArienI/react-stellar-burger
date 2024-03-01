@@ -46,4 +46,4 @@ function websocketReducer(state: TWebsocketState = websocket, action: TWebsocket
   }
 };
 
-export { websocketReducer };
+export { websocketReducer, websocket };

@@ -6,6 +6,8 @@ const burger: TBurger = [];
 function burgerReducer(state: TBurger = burger, action: TBurgerActions): TBurger {
 
   function updateIngredientList(ingredients: TBurger, newIngredient: TIngredient): TBurger {
+    // Булочка добавляется в начало списка
+    // Уже имеющаяся булочка удаляется через "dispatch" в "BurgerConstructor"
     return newIngredient.type === 'bun' ? [newIngredient].concat(ingredients) : [...ingredients, newIngredient];
   };
 
@@ -32,4 +34,4 @@ function burgerReducer(state: TBurger = burger, action: TBurgerActions): TBurger
   }
 };
 
-export { burgerReducer };
+export { burgerReducer, burger };
